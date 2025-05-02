@@ -24,11 +24,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark"> {/* Force dark theme based on cyberpunk palette */}
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <main>{children}</main>
-        <Toaster /> {/* Add Toaster here */}
-      </body>
+    <html lang="en" className="dark">
+      {/* Force dark theme based on cyberpunk palette */}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>        
+          {children}
+          <Toaster />
+          {/* Add Toaster here */}
+      </body> 
     </html>
   );
 }

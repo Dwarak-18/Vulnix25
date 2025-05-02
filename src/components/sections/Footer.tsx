@@ -32,10 +32,10 @@ const Footer = () => {
           ))}
         </div>
         <p className="text-sm">
-          &copy; {currentYear} VULNIX Symposium. All rights reserved.
+          &copy; {currentYear} VULNIX`25 Symposium. All rights reserved.
         </p>
          <p className="text-xs mt-2">
-           Designed with <span className="text-primary">&lt;/&gt;</span> in the Cyberpunk Realm.
+           Designed By <span className="text-primary">&lt;/&gt;</span> Bl4ckDot.
          </p>
       </div>
     </footer>
