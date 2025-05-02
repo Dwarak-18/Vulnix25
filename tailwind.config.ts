@@ -10,6 +10,7 @@ export default {
   theme: {
   	extend: {
   		colors: {
+        // Existing ShadCN UI colors using CSS variables
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -21,11 +22,11 @@ export default {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
+  				DEFAULT: 'hsl(var(--primary))', // Neon Pink
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
+  				DEFAULT: 'hsl(var(--secondary))', // Electric Blue
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
   			muted: {
@@ -33,7 +34,7 @@ export default {
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
+  				DEFAULT: 'hsl(var(--accent))', // Electric Green
   				foreground: 'hsl(var(--accent-foreground))'
   			},
   			destructive: {
@@ -42,7 +43,7 @@ export default {
   			},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
+  			ring: 'hsl(var(--ring))', // Use accent for ring
   			chart: {
   				'1': 'hsl(var(--chart-1))',
   				'2': 'hsl(var(--chart-2))',
@@ -50,6 +51,7 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
+        // Sidebar colors (can inherit or be specific)
   			sidebar: {
   				DEFAULT: 'hsl(var(--sidebar-background))',
   				foreground: 'hsl(var(--sidebar-foreground))',
@@ -82,11 +84,23 @@ export default {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+        // Add pulse-glow animation keyframes
+        'pulse-glow': {
+          '0%, 100%': {
+            opacity: '1',
+            boxShadow: '0 0 5px hsl(var(--accent) / 0.5), 0 0 10px hsl(var(--accent) / 0.3)',
+           },
+           '50%': {
+            opacity: '0.9',
+            boxShadow: '0 0 10px hsl(var(--accent) / 0.7), 0 0 20px hsl(var(--accent) / 0.5)',
+           },
+         },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+         'pulse-glow': 'pulse-glow 2.5s infinite ease-in-out', // Add pulse-glow animation
   		}
   	}
   },

@@ -1,0 +1,193 @@
+'use client';
+
+import React, { useState } from 'react';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { eventsData } from '@/constants/events';
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from 'lucide-react';
+
+// Define the form schema using Zod
+const registrationSchema = z.object({
+  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
+  email: z.string().email({ message: 'Please enter a valid email address.' }),
+  college: z.string().min(3, { message: 'College name is required.' }),
+  year: z.string().min(1, { message: 'Please select your year.' }),
+  event: z.string().min(1, { message: 'Please select an event.' }),
+});
+
+type RegistrationFormData = z.infer<typeof registrationSchema>;
+
+// IMPORTANT: Replace with your actual Google Form URL and field names
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse'; // Replace YOUR_FORM_ID
+const FORM_FIELDS_MAPPING = {
+  name: 'entry.YOUR_NAME_FIELD_ID', // Replace YOUR_NAME_FIELD_ID
+  email: 'entry.YOUR_EMAIL_FIELD_ID', // Replace YOUR_EMAIL_FIELD_ID
+  college: 'entry.YOUR_COLLEGE_FIELD_ID', // Replace YOUR_COLLEGE_FIELD_ID
+  year: 'entry.YOUR_YEAR_FIELD_ID', // Replace YOUR_YEAR_FIELD_ID
+  event: 'entry.YOUR_EVENT_FIELD_ID', // Replace YOUR_EVENT_FIELD_ID
+};
+
+const RegistrationForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+  const { register, handleSubmit, control, formState: { errors }, reset, setValue } = useForm<RegistrationFormData>({
+    resolver: zodResolver(registrationSchema),
+  });
+
+ const onSubmit: SubmitHandler<RegistrationFormData> = async (data) => {
+    setIsSubmitting(true);
+
+    // Construct the form data payload for Google Forms
+    const formData = new FormData();
+    formData.append(FORM_FIELDS_MAPPING.name, data.name);
+    formData.append(FORM_FIELDS_MAPPING.email, data.email);
+    formData.append(FORM_FIELDS_MAPPING.college, data.college);
+    formData.append(FORM_FIELDS_MAPPING.year, data.year);
+    formData.append(FORM_FIELDS_MAPPING.event, data.event);
+
+    try {
+      // Note: Google Forms submission via fetch might be blocked by CORS depending on settings.
+      // This is a common pattern, but may require alternative methods (like a backend proxy or Apps Script) if it fails.
+      // We use 'no-cors' mode which means we won't get a response status, but the data should still submit if the URL/fields are correct.
+      await fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Important for Google Forms direct submission
+        body: formData,
+      });
+
+      toast({
+        title: "Registration Successful!",
+        description: "Your details have been submitted. See you at VULNIX!",
+        variant: "default", // Use default (or could customize)
+      });
+      reset(); // Clear the form
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Submission Failed",
+        description: "Could not submit registration. Please try again or contact support.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+
+  return (
+    <section id="register" className="py-16 md:py-24 bg-gradient-to-b from-background/95 to-background backdrop-blur-sm">
+      <div className="container mx-auto px-4 flex justify-center">
+        <Card className="w-full max-w-2xl bg-card/80 backdrop-blur-sm shadow-xl border-accent/30">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl md:text-4xl font-bold text-accent">Register Now</CardTitle>
+            <CardDescription className="text-muted-foreground">
+              Secure your spot at VULNIX! Fill out the form below.
+              <br/>
+              <span className="text-xs italic">(Ensure your Google Form URL and Field IDs are correctly set in the code)</span>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* Name Field */}
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-foreground/80">Full Name</Label>
+                <Input
+                  id="name"
+                  {...register('name')}
+                  placeholder="e.g., Ada Lovelace"
+                  className="bg-input/70 border-border focus:border-accent focus:ring-accent"
+                  aria-invalid={errors.name ? "true" : "false"}
+                />
+                {errors.name && <p className="text-destructive text-xs mt-1">{errors.name.message}</p>}
+              </div>
+
+              {/* Email Field */}
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-foreground/80">Email Address</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  {...register('email')}
+                  placeholder="e.g., ada@example.com"
+                  className="bg-input/70 border-border focus:border-accent focus:ring-accent"
+                   aria-invalid={errors.email ? "true" : "false"}
+                />
+                 {errors.email && <p className="text-destructive text-xs mt-1">{errors.email.message}</p>}
+              </div>
+
+              {/* College Field */}
+               <div className="space-y-2">
+                 <Label htmlFor="college" className="text-foreground/80">College Name</Label>
+                 <Input
+                   id="college"
+                   {...register('college')}
+                   placeholder="e.g., Babbage University"
+                  className="bg-input/70 border-border focus:border-accent focus:ring-accent"
+                   aria-invalid={errors.college ? "true" : "false"}
+                 />
+                 {errors.college && <p className="text-destructive text-xs mt-1">{errors.college.message}</p>}
+               </div>
+
+               {/* Year Field */}
+               <div className="space-y-2">
+                 <Label htmlFor="year" className="text-foreground/80">Year of Study</Label>
+                 <Select onValueChange={(value) => setValue('year', value)} name="year">
+                    <SelectTrigger id="year" className="bg-input/70 border-border focus:ring-accent" aria-invalid={errors.year ? "true" : "false"}>
+                     <SelectValue placeholder="Select your year" />
+                   </SelectTrigger>
+                   <SelectContent className="bg-popover border-border">
+                     <SelectItem value="1st Year">1st Year</SelectItem>
+                     <SelectItem value="2nd Year">2nd Year</SelectItem>
+                     <SelectItem value="3rd Year">3rd Year</SelectItem>
+                     <SelectItem value="4th Year">4th Year</SelectItem>
+                     <SelectItem value="Other">Other</SelectItem>
+                   </SelectContent>
+                 </Select>
+                  {errors.year && <p className="text-destructive text-xs mt-1">{errors.year.message}</p>}
+               </div>
+
+               {/* Event Selection Field */}
+              <div className="space-y-2">
+                <Label htmlFor="event" className="text-foreground/80">Select Event</Label>
+                 <Select onValueChange={(value) => setValue('event', value)} name="event">
+                   <SelectTrigger id="event" className="bg-input/70 border-border focus:ring-accent" aria-invalid={errors.event ? "true" : "false"}>
+                     <SelectValue placeholder="Choose an event to register for" />
+                   </SelectTrigger>
+                   <SelectContent className="bg-popover border-border max-h-60">
+                     <SelectItem value="General Admission">General Admission (Attend All)</SelectItem>
+                     {eventsData.map((event) => (
+                       <SelectItem key={event.id} value={event.name}>
+                         {event.name} ({event.type})
+                       </SelectItem>
+                     ))}
+                   </SelectContent>
+                 </Select>
+                 {errors.event && <p className="text-destructive text-xs mt-1">{errors.event.message}</p>}
+               </div>
+
+
+              <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg animate-pulse-glow" disabled={isSubmitting}>
+                {isSubmitting ? (
+                   <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...
+                   </>
+                 ) : (
+                   'Register for VULNIX'
+                 )}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+};
+
+export default RegistrationForm;
