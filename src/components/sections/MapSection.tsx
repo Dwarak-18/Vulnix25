@@ -5,7 +5,7 @@ import { MapPin } from 'lucide-react';
 const MapSection = () => {
   // Google Maps Embed URL for "Dhanalakshmi Srinivasan College of Engineering and Technology, East Coast Road, Mamallapuram, Chennai 603104"
   // Note: It's better to search for the place name + address for accuracy.
-  const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3894.807916749695!2d80.19337687488803!3d12.528801087770566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a531df34a34196b%3A0x65f4e63a1106691e!2sDhanalakshmi%20Srinivasan%20College%20of%20Engineering%20and%20Technology%20-%20DSCET!5e0!3m2!1sen!2sin!4v1719140000000!5m2!1sen!2sin"; // Replace with the actual embed URL if needed
+  const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3893.422597365!2d80.17801877488675!3d12.620258387663766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53ab5250243c71%3A0xbb338ff75412f3f5!2sDhanalakshmi%20Srinivasan%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1746295628509!5m2!1sen!2sin"; // Replace with the actual embed URL if needed
 
   return (
     <section id="location" className="py-16 md:py-24 bg-gradient-to-b from-background/90 to-background/95 backdrop-blur-sm">
