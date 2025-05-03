@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
+import CountdownTimer from '@/components/sections/CountdownTimer'; // Import the CountdownTimer
 
 const HeroSection = () => {
   const handleScroll = () => {
@@ -11,8 +12,11 @@ const HeroSection = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-    const router = useRouter();
-    const handleRegisterClick = () => router.push('/register');
+  const router = useRouter();
+  const handleRegisterClick = () => router.push('/register');
+
+  // Target date: May 17, 2025
+  const targetDate = new Date('2025-05-17T00:00:00').toISOString();
 
   return (
     <section
@@ -36,6 +40,12 @@ const HeroSection = () => {
         <p className="text-xl md:text-2xl mb-8 max-w-3xl text-muted-foreground font-light">
           Explore the frontiers of cybersecurity. Engage, learn, and compete in VULNIX, the premier tech symposium.
         </p>
+
+        {/* Add the Countdown Timer */}
+        <div className="mb-8">
+          <CountdownTimer targetDate={targetDate} />
+        </div>
+
         <div className="flex gap-4">
           <Button
             size="lg"
@@ -55,10 +65,10 @@ const HeroSection = () => {
         </div>
       </div>
 
-       {/* Subtle animated elements */}
-       <div className="absolute bottom-10 left-10 h-1 w-1 bg-accent rounded-full animate-ping opacity-50"></div>
-       <div className="absolute top-20 right-20 h-2 w-2 bg-primary rounded-full animate-pulse opacity-60"></div>
-       <div className="absolute bottom-1/4 right-1/4 h-1 w-1 bg-secondary rounded-full animate-ping delay-500 opacity-40"></div>
+      {/* Subtle animated elements */}
+      <div className="absolute bottom-10 left-10 h-1 w-1 bg-accent rounded-full animate-ping opacity-50"></div>
+      <div className="absolute top-20 right-20 h-2 w-2 bg-primary rounded-full animate-pulse opacity-60"></div>
+      <div className="absolute bottom-1/4 right-1/4 h-1 w-1 bg-secondary rounded-full animate-ping delay-500 opacity-40"></div>
     </section>
   );
 };
