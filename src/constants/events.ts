@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Code, FileText, Presentation, SearchCheck, Lightbulb, HelpCircle, Goal, ShieldAlert, Wrench, Camera } from 'lucide-react';
+import { Code, FileText, Presentation, SearchCheck, Lightbulb, HelpCircle, Goal, ShieldAlert, Wrench, Camera, Flag } from 'lucide-react'; // Added Flag
 
 export interface Event {
   id: string;
@@ -34,7 +34,7 @@ export const eventsData: Event[] = [
     type: 'Technical',
     icon: FileText,
     startTime: '10:00 AM',
-    endTime: '11:30 AM',    
+    endTime: '11:30 AM',
     rules: ['Presentations should be based on original research or in-depth analysis of a cybersecurity topic.', 'Presentations will be judged based on content, delivery, and Q&A.'],
     descriptionDetails: 'Participants are to present their research, ideas, or analysis on a cybersecurity-related topic in front of a panel of judges.',
     eliminationProcess: 'Judges will score presentations based on content, clarity, delivery, and engagement.',
@@ -46,7 +46,7 @@ export const eventsData: Event[] = [
     type: 'Technical',
     icon: SearchCheck,
     startTime: '11:30 AM',
-    endTime: '01:00 PM',    
+    endTime: '01:00 PM',
     rules: ['Teams must analyze provided digital evidence to solve a simulated cybercrime.', 'Use of forensic tools and techniques is allowed.'],
     descriptionDetails: 'Teams will be presented with a fictional cybercrime scenario and must analyze the provided digital evidence to identify the culprit and explain their methods.',
     eliminationProcess: 'Teams will be evaluated based on the accuracy and thoroughness of their investigation, as well as the clarity of their conclusions.',
@@ -58,7 +58,7 @@ export const eventsData: Event[] = [
     type: 'Technical',
     icon: Presentation,
     startTime: '12:00 PM',
-    endTime: '01:30 PM',    
+    endTime: '01:30 PM',
         rules: ['Posters must visually communicate a cybersecurity project or idea.', 'Presenters should be prepared to engage with attendees and answer questions.'],
     descriptionDetails: 'Participants are to present a cybersecurity project or idea in the form of a poster.',
     eliminationProcess: 'Judges will evaluate posters based on visual communication, clarity of information, and the presenter\'s ability to engage with attendees.',
@@ -70,12 +70,28 @@ export const eventsData: Event[] = [
     type: 'Technical',
     icon: Lightbulb,
     startTime: '01:30 PM',
-    endTime: '03:00 PM',    
+    endTime: '03:00 PM',
         rules: ['Participants will pitch their cybersecurity solution or startup idea to a panel of judges.', 'Pitch should include the problem, solution, and market potential.'],
     descriptionDetails: 'Participants will pitch their cybersecurity solution or startup idea in front of a panel of judges.',
     eliminationProcess: 'Judges will score based on innovation, feasibility, impact, and the quality of the presentation.',
   },
-
+   {
+    id: 'ctf-challenge', // New CTF event ID
+    name: 'CTF Challenge',
+    description: 'Capture The Flag! Engage in a series of cybersecurity challenges spanning web, crypto, forensics, and more.',
+    type: 'Technical',
+    icon: Flag, // Using Flag icon for CTF
+    startTime: '02:00 PM', // Example time, adjust as needed
+    endTime: '04:00 PM', // Example time, adjust as needed
+    rules: [
+      'Participants compete individually or in teams.',
+      'Solve challenges across various cybersecurity domains to find hidden flags.',
+      'Points are awarded based on challenge difficulty and speed.',
+      'External tools and resources are generally permitted unless specified otherwise.'
+    ],
+    descriptionDetails: 'A classic Capture The Flag competition designed to test practical cybersecurity skills. Participants will tackle challenges in areas like web application security, cryptography, reverse engineering, digital forensics, and network analysis.',
+    eliminationProcess: 'Participants/Teams are ranked based on the total points accumulated from captured flags. The highest scores win. Tie-breakers may be decided by the time of the last flag submission.',
+   },
   {
     id: 'real-or-ruse',
     name: 'Real or Ruse',
@@ -83,7 +99,7 @@ export const eventsData: Event[] = [
     type: 'Non-Technical',
     icon: HelpCircle,
     startTime: '09:00 AM',
-    endTime: '10:00 AM',    
+    endTime: '10:00 AM',
     rules: ['Participants will be shown a series of online or social media scenarios and must determine whether they are legitimate or deceptive.'],
     descriptionDetails: 'Participants\' ability to recognize phishing scams, fake news, and social engineering tactics will be tested.',
     eliminationProcess: 'Participants will be ranked based on the number of correct classifications of the scenarios.',
@@ -95,7 +111,7 @@ export const eventsData: Event[] = [
     type: 'Non-Technical',
     icon: Wrench,
     startTime: '10:30 AM',
-    endTime: '11:30 AM',    
+    endTime: '11:30 AM',
     rules: ['Participants will face basic hardware troubleshooting or network cable crimping challenges.', 'The fastest and most accurate solutions win.'],
     descriptionDetails: 'Participants will engage in hands-on challenges involving basic hardware troubleshooting or network cable crimping.',
     eliminationProcess: 'Challenges will be timed, and participants will be ranked based on the speed and accuracy of their solutions.',
@@ -107,7 +123,7 @@ export const eventsData: Event[] = [
     type: 'Non-Technical',
     icon: ShieldAlert,
     startTime: '11:00 AM',
-    endTime: '12:30 PM',    
+    endTime: '12:30 PM',
         rules: ['Participants will face a series of quick challenges that test logic, teamwork, and situational awareness.'],
     descriptionDetails: 'Participants will face a series of challenges that test logic, teamwork, and situational awareness.',
     eliminationProcess: 'Participants will be scored based on the number of challenges completed and their performance in each challenge.',
@@ -130,7 +146,7 @@ export const eventsData: Event[] = [
     description: 'Show off your virtual football skills in a friendly e-sports tournament. Compete for bragging rights!',
     type: 'Non-Technical',
     icon: Goal, // Using Goal, closest representation
-    startTime: '01:00 PM',    
+    startTime: '01:00 PM',
     endTime: '03:00 PM',
     rules: ['Standard e-football rules apply.', 'Matches will be conducted in a tournament format.'],
     descriptionDetails: 'Participants will compete in a virtual football tournament.',
