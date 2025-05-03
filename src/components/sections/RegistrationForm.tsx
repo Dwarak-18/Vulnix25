@@ -25,7 +25,7 @@ const registrationSchema = z.object({
 type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 // IMPORTANT: Replace with your actual Google Form URL and field names
-const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse'; // Replace YOUR_FORM_ID
+const GOOGLE_FORM_URL = 'https://forms.gle/kpPKCXGsCG7aSuQf9'; // Replace YOUR_FORM_ID
 const FORM_FIELDS_MAPPING = {
   name: 'entry.YOUR_NAME_FIELD_ID', // Replace YOUR_NAME_FIELD_ID
   email: 'entry.YOUR_EMAIL_FIELD_ID', // Replace YOUR_EMAIL_FIELD_ID
@@ -101,7 +101,7 @@ const RegistrationForm = () => {
                 <Input
                   id="name"
                   {...register('name')}
-                  placeholder="e.g., Ada Lovelace"
+                  // placeholder="e.g., Ada Lovelace"
                   className="bg-input/70 border-border focus:border-accent focus:ring-accent"
                   aria-invalid={errors.name ? "true" : "false"}
                 />
@@ -115,7 +115,7 @@ const RegistrationForm = () => {
                   id="email"
                   type="email"
                   {...register('email')}
-                  placeholder="e.g., ada@example.com"
+                  // placeholder="e.g., google@gmail.com"
                   className="bg-input/70 border-border focus:border-accent focus:ring-accent"
                    aria-invalid={errors.email ? "true" : "false"}
                 />
@@ -128,7 +128,7 @@ const RegistrationForm = () => {
                  <Input
                    id="college"
                    {...register('college')}
-                   placeholder="e.g., Babbage University"
+                  //  placeholder="e.g., Anna University"
                   className="bg-input/70 border-border focus:border-accent focus:ring-accent"
                    aria-invalid={errors.college ? "true" : "false"}
                  />

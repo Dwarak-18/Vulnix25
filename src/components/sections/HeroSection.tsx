@@ -16,7 +16,7 @@ const HeroSection = () => {
       className="relative flex h-screen flex-col items-center justify-center text-center text-foreground overflow-hidden parallax-section"
       style={{
         // Placeholder for a cyberpunk-themed background image
-        backgroundImage: `url('https://picsum.photos/1920/1080?grayscale&blur=2')`, // Example placeholder
+        backgroundImage: `url('https://4kwallpapers.com/images/walls/thumbs_3t/15155.jpg')`, // Example placeholder
         // The gradient is primarily handled by globals.css body style, but this adds specific bg
       }}
       data-ai-hint="cyberpunk city night neon"

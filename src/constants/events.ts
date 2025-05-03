@@ -35,7 +35,7 @@ export const eventsData: Event[] = [
     icon: FileText,
     startTime: '10:00 AM',
     endTime: '11:30 AM',    
-        rules: ['Presentations should be based on original research or in-depth analysis of a cybersecurity topic.', 'Presentations will be judged based on content, delivery, and Q&A.'],
+    rules: ['Presentations should be based on original research or in-depth analysis of a cybersecurity topic.', 'Presentations will be judged based on content, delivery, and Q&A.'],
     descriptionDetails: 'Participants are to present their research, ideas, or analysis on a cybersecurity-related topic in front of a panel of judges.',
     eliminationProcess: 'Judges will score presentations based on content, clarity, delivery, and engagement.',
   },

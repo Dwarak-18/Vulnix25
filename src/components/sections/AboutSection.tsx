@@ -13,16 +13,15 @@ const AboutSection = () => {
             </div>
             <CardTitle className="text-3xl md:text-4xl font-bold text-primary">About VULNIX</CardTitle>
           </CardHeader>
-          <CardContent className="text-center text-lg md:text-xl text-card-foreground leading-relaxed">
+          <CardContent className="text-justify text-lg md:text-xl text-card-foreground leading-relaxed">
             <p className="mb-4">
-              VULNIX is a dynamic college symposium dedicated to cybersecurity awareness and practical guidance.
-              In an increasingly digital world, understanding cyber threats and defenses is crucial.
+            Vulnix'25 is a pioneering cybersecurity symposium organized by Dhanalakshmi Srinivasan College of Engineering and Technology. This premier event is dedicated to exploring the evolving landscape of digital security, where vulnerabilities meet innovative defense strategies.
+
             </p>
             <p className="mb-4">
-              Our event brings together students, enthusiasts, and experts to explore the latest trends, challenges, and innovations in cybersecurity.
-            </p>
+            At Vulnix'25, attendees will experience a robust agenda featuring keynote addresses by industry leaders, interactive workshops, panel discussions, and live competitions—all aimed at deepening cyber expertise and sparking collaborative solutions. Whether you're a student, professional, or researcher, this symposium is your opportunity to gain invaluable insights into the latest trends, vulnerabilities, and countermeasures in cybersecurity.            </p>
             <p>
-              Join us for a day of engaging technical competitions, insightful presentations, fun non-technical activities, and valuable networking opportunities designed to empower the next generation of cyber defenders.
+            Join us as we unite passionate minds to confront the challenges of today’s digital arena, empower the next generation of cybersecurity experts, and pave the way for a safer, smarter tomorrow.
             </p>
           </CardContent>
         </Card>
