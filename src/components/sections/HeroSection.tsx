@@ -31,8 +31,8 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black/90 z-0"></div>
 
       <div className="relative z-10 p-4 flex flex-col items-center">
-        {/* Apply text-glow class here */}
-        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-tight text-glow">
+        {/* Apply glow-link class for hover effect */}
+        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-tight glow-link cursor-pointer">
           <span className="text-primary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">VULN</span>
           <span className="text-secondary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">IX</span>
         </h1>
