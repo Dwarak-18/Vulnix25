@@ -22,6 +22,16 @@ const Header: React.FC = () => {
                 Events
               </Link>
             </li>
+             <li>
+              <Link href="/#timeline" className="glow-link">
+                Timeline
+              </Link>
+            </li>
+             <li>
+              <Link href="/#location" className="glow-link">
+                Location
+              </Link>
+            </li>
             <li>
               <Link href="/#about" className="glow-link">
                 About

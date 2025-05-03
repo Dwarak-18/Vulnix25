@@ -3,6 +3,7 @@ import AboutSection from '@/components/sections/AboutSection';
 import EventsSection from '@/components/sections/EventsSection';
 import TimelineSection from '@/components/sections/TimelineSection';
 import RegistrationForm from '@/components/sections/RegistrationForm';
+import MapSection from '@/components/sections/MapSection'; // Import MapSection
 import Footer from '@/components/sections/Footer';
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       <AboutSection />
       <EventsSection />
       <TimelineSection />
+      <MapSection /> {/* Add MapSection here */}
       <Footer />
     </div>
   );
