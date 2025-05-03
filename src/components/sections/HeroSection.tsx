@@ -23,9 +23,7 @@ const HeroSection = () => {
       id="hero"
       className="relative flex h-screen flex-col items-center justify-center text-center text-foreground overflow-hidden parallax-section"
       style={{
-        // Placeholder for a cyberpunk-themed background image
-        backgroundImage: `url('https://4kwallpapers.com/images/walls/thumbs_3t/15155.jpg')`, // Example placeholder
-        // The gradient is primarily handled by globals.css body style, but this adds specific bg
+        backgroundImage: `url('https://4kwallpapers.com/images/walls/thumbs_3t/15155.jpg')`,
       }}
       data-ai-hint="cyberpunk city night neon"
     >
@@ -33,7 +31,8 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black/90 z-0"></div>
 
       <div className="relative z-10 p-4 flex flex-col items-center">
-        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-tight">
+        {/* Apply text-glow class here */}
+        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-tight text-glow">
           <span className="text-primary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">VULN</span>
           <span className="text-secondary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">IX</span>
         </h1>

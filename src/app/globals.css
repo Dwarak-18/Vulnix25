@@ -105,15 +105,24 @@ body {
   background-size: cover;
 }
 
-.glow-link {  
-    text-decoration: none; 
+/* Link glow effect on hover */
+.glow-link {
+    text-decoration: none;
 }
 
 .glow-link:hover {
     color: hsl(var(--primary));
-    text-shadow: 
+    text-shadow:
         0 0 5px hsl(var(--primary) / 0.7),
         0 0 15px hsl(var(--primary) / 0.5),
         0 0 30px hsl(var(--primary) / 0.3);
-    transition: text-shadow 0.3s ease; 
+    transition: text-shadow 0.3s ease;
+}
+
+/* Static text glow effect using accent color */
+.text-glow {
+  text-shadow:
+    0 0 8px hsl(var(--accent) / 0.6),
+    0 0 16px hsl(var(--accent) / 0.4),
+    0 0 24px hsl(var(--accent) / 0.2);
 }
