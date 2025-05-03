@@ -2,7 +2,6 @@ import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import EventsSection from '@/components/sections/EventsSection';
 import TimelineSection from '@/components/sections/TimelineSection';
-import RegistrationForm from '@/components/sections/RegistrationForm';
 import Footer from '@/components/sections/Footer';
 
 export default function Home() {
@@ -12,7 +11,6 @@ export default function Home() {
       <AboutSection />
       <EventsSection />
       <TimelineSection />
-      <RegistrationForm />
       <Footer />
     </div>
   );
