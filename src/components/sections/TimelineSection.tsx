@@ -1,10 +1,10 @@
 'use client'; // Add this directive
 
-import React, { useState, Fragment } from 'react';
-import { getSortedEvents, type Event } from '@/constants/events'; // Changed the import path
+import React, { useState } from 'react'; // Removed Fragment as it's not used
+import { getSortedEvents, type Event } from '@/constants/events';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock } from 'lucide-react'; // Changed to named import
+import { Clock } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface EventModalProps {
@@ -42,16 +42,19 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
 const TimelineEvent = ({ event, onEventClick }: { event: Event; onEventClick: () => void }) => {
   const Icon = event.icon;
   const badgeVariant = event.type === 'Technical' ? 'secondary' : 'default';
-  const iconBgColor = event.type === 'Technical' ? 'bg-secondary' : 'bg-primary';
-  const iconTextColor = event.type === 'Technical' ? 'text-secondary-foreground' : 'text-primary-foreground';
 
   return (
-    <div className="relative flex flex-col items-center text-center cursor-pointer group" onClick={onEventClick}>
-      {/* Timeline Dot */}
-      <div className={`w-8 h-8 rounded-full ${iconBgColor} flex items-center justify-center z-10 transition-transform group-hover:scale-110`}>
-        <Icon className={`w-4 h-4 ${iconTextColor}`} />
+    <div className="relative pl-12 pb-8 cursor-pointer group" onClick={onEventClick}>
+      {/* Vertical Line Segment (part of the main line) */}
+      {/* Dot */}
+      <div className="absolute left-0 top-1 transform -translate-x-1/2 w-8 h-8 rounded-full bg-border flex items-center justify-center z-20 group-hover:scale-110 transition-transform">
+        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${event.type === 'Technical' ? 'bg-secondary' : 'bg-primary'}`}>
+            <Icon className={`w-4 h-4 ${event.type === 'Technical' ? 'text-secondary-foreground' : 'text-primary-foreground'}`} />
+        </div>
       </div>
-      <Card className="bg-card/80 backdrop-blur-sm shadow-md relative mt-2 w-full max-w-xs transition-shadow group-hover:shadow-lg group-hover:shadow-accent/20 border border-border/30 group-hover:border-accent/50">
+
+      {/* Card */}
+      <Card className="bg-card/80 backdrop-blur-sm shadow-md transition-shadow group-hover:shadow-lg group-hover:shadow-accent/20 border border-border/30 group-hover:border-accent/50 ml-4">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between mb-1">
             <CardTitle className="text-lg font-semibold">{event.name}</CardTitle>
@@ -74,32 +77,25 @@ const TimelineEvent = ({ event, onEventClick }: { event: Event; onEventClick: ()
 const TimelineSection = () => {
   const sortedEvents = getSortedEvents();
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
   const handleEventClick = (event: Event) => {
     setSelectedEvent(event);
   };
+
   const handleModalClose = () => setSelectedEvent(null);
 
   return (
     <section id="timeline" className="py-16 md:py-24 bg-background/90 backdrop-blur-sm">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-3xl"> {/* Constrain width for better vertical layout */}
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-secondary drop-shadow-md">Event Timeline</h2>
         <div className="relative">
-          {/* Horizontal Line for Desktop */}
-          <div className="hidden md:block w-full h-1 bg-border/50 absolute top-4 left-0 transform -translate-y-1/2 z-0"></div>
-           {/* Vertical Line for Mobile */}
-           <div className="block md:hidden w-1 h-full bg-border/50 absolute left-4 top-0 bottom-0 transform -translate-x-1/2 z-0"></div>
+          {/* Vertical Line */}
+          <div className="absolute left-4 top-0 bottom-0 w-1 bg-border/50 transform -translate-x-1/2 z-0"></div>
 
-          <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between relative z-10 gap-y-8 md:gap-x-4">
-            {sortedEvents.map((event, index) => (
-              <div key={event.id} className="relative w-full md:w-auto flex justify-center md:flex-1 px-2 md:px-0 pl-12 md:pl-0">
-                 {/* Mobile Dot */}
-                 <div className="block md:hidden absolute left-0 top-1 transform -translate-x-1/2 w-8 h-8 rounded-full bg-border flex items-center justify-center z-20">
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center ${event.type === 'Technical' ? 'bg-secondary' : 'bg-primary'}`}>
-                        <event.icon className={`w-4 h-4 ${event.type === 'Technical' ? 'text-secondary-foreground' : 'text-primary-foreground'}`} />
-                    </div>
-                 </div>
-                <TimelineEvent event={event} onEventClick={() => handleEventClick(event)} />
-              </div>
+          {/* Event Containers */}
+          <div className="relative z-10">
+            {sortedEvents.map((event) => (
+              <TimelineEvent key={event.id} event={event} onEventClick={() => handleEventClick(event)} />
             ))}
           </div>
         </div>
