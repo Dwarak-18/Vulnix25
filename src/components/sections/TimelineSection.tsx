@@ -1,6 +1,7 @@
+
 'use client'; // Add this directive
 
-import React, { useState } from 'react'; // Removed Fragment as it's not used
+import React, { useState } from 'react';
 import { getSortedEvents, type Event } from '@/constants/events';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -19,20 +20,33 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
       <DialogContent className="sm:max-w-[425px] bg-popover backdrop-blur-md border-accent border">
         <DialogHeader>
           <DialogTitle>{event.name}</DialogTitle>
-          <DialogDescription>
-            <Badge className="mb-2" variant={event.type === 'Technical' ? 'secondary' : 'default'}>{event.type}</Badge>
-            <div className="flex items-center text-xs mb-2 font-mono"><Clock className="h-3 w-3 mr-1.5" />{event.startTime} - {event.endTime}</div>
-            <p>{event.description}</p>
-            <h4 className="font-semibold mt-4 mb-1">Rules:</h4>
-            <ul className="list-disc list-inside text-xs">
-                {event.rules.map((rule, index) => <li key={index}>{rule}</li>)}
-            </ul>
-             <h4 className="font-semibold mt-4 mb-1">Detailed Description:</h4>
-             <p className="text-xs">{event.descriptionDetails}</p>
-             <h4 className="font-semibold mt-4 mb-1">Elimination Process:</h4>
-             <p className="text-xs">{event.eliminationProcess}</p>
-          </DialogDescription>
+          {/* Optional: Keep a simple description if needed */}
+          {/* <DialogDescription>Details for the selected event.</DialogDescription> */}
         </DialogHeader>
+        {/* Moved complex content outside DialogDescription to avoid invalid nesting */}
+        <div className="space-y-3 text-sm py-4">
+          <Badge className="mb-2" variant={event.type === 'Technical' ? 'secondary' : 'default'}>
+            {event.type}
+          </Badge>
+          <div className="flex items-center text-xs font-mono text-muted-foreground">
+            <Clock className="mr-1.5 h-3 w-3" />
+            {event.startTime} - {event.endTime}
+          </div>
+          <p className="text-muted-foreground">{event.description}</p>
+
+          <h4 className="font-semibold mt-4 mb-1 text-foreground">Rules:</h4>
+          <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
+            {event.rules.map((rule, index) => (
+              <li key={index}>{rule}</li>
+            ))}
+          </ul>
+
+          <h4 className="font-semibold mt-4 mb-1 text-foreground">Detailed Description:</h4>
+          <p className="text-xs text-muted-foreground">{event.descriptionDetails}</p>
+
+          <h4 className="font-semibold mt-4 mb-1 text-foreground">Elimination Process:</h4>
+          <p className="text-xs text-muted-foreground">{event.eliminationProcess}</p>
+        </div>
       </DialogContent>
     </Dialog>
   );
