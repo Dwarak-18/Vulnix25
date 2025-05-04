@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -26,7 +27,7 @@ const registrationSchema = z.object({
 type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 // IMPORTANT: Replace with your actual Google Form URL and field names
-const GOOGLE_FORM_URL = 'https://forms.gle/kpPKCXGsCG7aSuQf9'; // Replace YOUR_FORM_ID
+const GOOGLE_FORM_URL = 'https://forms.gle/kpPKCXGsCG7aSuQf9'; // Updated Google Form URL
 const FORM_FIELDS_MAPPING = {
   name: 'entry.NAME OF THE STUDENT', // Replace YOUR_NAME_FIELD_ID
   email: 'entry.E-MAIL ID', // Replace YOUR_EMAIL_FIELD_ID
@@ -212,3 +213,4 @@ const RegistrationForm = () => {
 };
 
 export default RegistrationForm;
+
