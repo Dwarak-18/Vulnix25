@@ -1,15 +1,16 @@
+
 'use client'; // Add this directive
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { ArrowDown } from 'lucide-react';
+import { CalendarDays } from 'lucide-react'; // Changed icon to CalendarDays
 import CountdownTimer from '@/components/sections/CountdownTimer'; // Import the CountdownTimer
 
 const HeroSection = () => {
   const handleScroll = () => {
     // Ensure this runs only on the client where `document` is available
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' }); // Changed target to 'timeline'
   };
 
   const router = useRouter();
@@ -32,7 +33,7 @@ const HeroSection = () => {
 
       <div className="relative z-10 p-4 flex flex-col items-center">
         {/* Apply glow-link class for hover effect */}
-        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-tight glow-link cursor-pointer">
+        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-tight glow-link cursor-default"> {/* Changed cursor to default */}
           <span className="text-primary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">VULN</span>
           <span className="text-secondary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">IX</span>
         </h1>
@@ -49,10 +50,10 @@ const HeroSection = () => {
           <Button
             size="lg"
             className="bg-accent text-accent-foreground hover:bg-accent/90 animate-pulse-glow shadow-lg"
-            onClick={handleScroll} // Use the client-side safe handler
+            onClick={handleScroll} // Use the client-side safe handler to scroll to #timeline
           >
-            Discover Events
-            <ArrowDown className="ml-2 h-5 w-5" />
+            View Timeline {/* Changed button text */}
+            <CalendarDays className="ml-2 h-5 w-5" /> {/* Changed icon */}
           </Button>
           <Button
             size="lg"
@@ -73,3 +74,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
