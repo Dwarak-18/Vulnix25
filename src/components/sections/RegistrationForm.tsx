@@ -17,6 +17,7 @@ import { Loader2 } from 'lucide-react';
 const registrationSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
+  phoneNumber: z.string().min(10, {message: 'Phone number must be at least 10 numbers'}),
   college: z.string().min(3, { message: 'College name is required.' }),
   year: z.string().min(1, { message: 'Please select your year.' }),
   event: z.string().min(1, { message: 'Please select an event.' }),
@@ -27,12 +28,14 @@ type RegistrationFormData = z.infer<typeof registrationSchema>;
 // IMPORTANT: Replace with your actual Google Form URL and field names
 const GOOGLE_FORM_URL = 'https://forms.gle/kpPKCXGsCG7aSuQf9'; // Replace YOUR_FORM_ID
 const FORM_FIELDS_MAPPING = {
-  name: 'entry.YOUR_NAME_FIELD_ID', // Replace YOUR_NAME_FIELD_ID
-  email: 'entry.YOUR_EMAIL_FIELD_ID', // Replace YOUR_EMAIL_FIELD_ID
-  college: 'entry.YOUR_COLLEGE_FIELD_ID', // Replace YOUR_COLLEGE_FIELD_ID
-  year: 'entry.YOUR_YEAR_FIELD_ID', // Replace YOUR_YEAR_FIELD_ID
-  event: 'entry.YOUR_EVENT_FIELD_ID', // Replace YOUR_EVENT_FIELD_ID
-};
+  name: 'entry.NAME OF THE STUDENT', // Replace YOUR_NAME_FIELD_ID
+  email: 'entry.E-MAIL ID', // Replace YOUR_EMAIL_FIELD_ID
+  phoneNumber:'entry.PHONE NUMBER',
+  college: 'entry.COLLEGE NAME', // Replace YOUR_COLLEGE_FIELD_ID
+  year: 'entry.YEAR OF STUDY',
+  technicalEvent: 'entry.TECHNICAL EVENT', 
+  nonTechnicalEvent: 'entry.NON TECHNICAL EVENT', 
+  };
 
 const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,9 +51,19 @@ const RegistrationForm = () => {
     const formData = new FormData();
     formData.append(FORM_FIELDS_MAPPING.name, data.name);
     formData.append(FORM_FIELDS_MAPPING.email, data.email);
+    formData.append(FORM_FIELDS_MAPPING.phoneNumber, data.phoneNumber);
     formData.append(FORM_FIELDS_MAPPING.college, data.college);
     formData.append(FORM_FIELDS_MAPPING.year, data.year);
-    formData.append(FORM_FIELDS_MAPPING.event, data.event);
+    if (data.event === 'General Admission') {
+      // Do not add any value for technical or non-technical events
+    } else {
+      const selectedEvent = eventsData.find((event) => event.name === data.event);
+      if (selectedEvent) {
+        const eventField = selectedEvent.type === 'Technical' ? 'technicalEvent' : 'nonTechnicalEvent';
+        formData.append(FORM_FIELDS_MAPPING[eventField as keyof typeof FORM_FIELDS_MAPPING], data.event);
+      }
+    }
+
 
     try {
       // Note: Google Forms submission via fetch might be blocked by CORS depending on settings.
@@ -90,7 +103,7 @@ const RegistrationForm = () => {
             <CardDescription className="text-muted-foreground">
               Secure your spot at VULNIX! Fill out the form below.
               <br/>
-              <span className="text-xs italic">(Ensure your Google Form URL and Field IDs are correctly set in the code)</span>
+              {/* <span className="text-xs italic">(Ensure your Google Form URL and Field IDs are correctly set in the code)</span> */}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -120,6 +133,19 @@ const RegistrationForm = () => {
                    aria-invalid={errors.email ? "true" : "false"}
                 />
                  {errors.email && <p className="text-destructive text-xs mt-1">{errors.email.message}</p>}
+              </div>
+
+              {/* Phone Number Field */}
+              <div className="space-y-2">
+                <Label htmlFor="phoneNumber" className="text-foreground/80">Phone Number</Label>
+                <Input
+                  id="phoneNumber"
+                  {...register('phoneNumber')}
+                  // placeholder="+919876543210"
+                  className="bg-input/70 border-border focus:border-accent focus:ring-accent"
+                  aria-invalid={errors.phoneNumber ? "true" : "false"}
+                />
+                {errors.phoneNumber && <p className="text-destructive text-xs mt-1">{errors.phoneNumber.message}</p>}
               </div>
 
               {/* College Field */}

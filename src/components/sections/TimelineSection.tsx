@@ -20,17 +20,22 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
       <DialogContent className="sm:max-w-[425px] bg-popover backdrop-blur-md border-accent border">
         <DialogHeader>
           <DialogTitle>{event.name}</DialogTitle>
+           {/* Use DialogDescription for the short description text */}
+           <DialogDescription className="pt-2 text-sm">
+             {event.description}
+           </DialogDescription>
         </DialogHeader>
         {/* Moved complex content outside DialogDescription to avoid invalid nesting */}
         <div className="space-y-3 text-sm py-4">
-          <Badge className="mb-2" variant={event.type === 'Technical' ? 'secondary' : 'default'}>
-            {event.type}
-          </Badge>
+           <Badge className="mb-2" variant={event.type === 'Technical' ? 'secondary' : 'default'}>
+             {event.type}
+           </Badge>
           <div className="flex items-center text-xs font-mono text-muted-foreground">
             <Clock className="mr-1.5 h-3 w-3" />
             {event.startTime} - {event.endTime}
           </div>
-          <p className="text-muted-foreground">{event.description}</p>
+          {/* Remove the short description paragraph from here as it's in DialogDescription now */}
+          {/* <p className="text-muted-foreground">{event.description}</p> */}
 
           <h4 className="font-semibold mt-4 mb-1 text-foreground">Rules:</h4>
           <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
@@ -110,8 +115,8 @@ const TimelineSection = () => {
       <div className="container mx-auto px-4 max-w-3xl relative z-10"> {/* Added relative z-10 */}
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-secondary drop-shadow-md">Event Timeline</h2>
         <div className="relative">
-          {/* Vertical Line */}
-          <div className="absolute left-4 top-0 bottom-0 w-1 bg-border/50 transform -translate-x-1/2 z-0"></div>
+          {/* Vertical Line - Made more visible using secondary color */}
+          <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-secondary/50 transform -translate-x-1/2 z-0"></div>
 
           {/* Event Containers */}
           <div className="relative z-10">
@@ -128,3 +133,4 @@ const TimelineSection = () => {
   );
 };
 export default TimelineSection;
+
