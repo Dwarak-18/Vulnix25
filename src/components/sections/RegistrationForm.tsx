@@ -33,8 +33,8 @@ const FORM_FIELDS_MAPPING = {
   phoneNumber:'entry.PHONE NUMBER',
   college: 'entry.COLLEGE NAME', // Replace YOUR_COLLEGE_FIELD_ID
   year: 'entry.YEAR OF STUDY',
-  technicalEvent: 'entry.TECHNICAL EVENT', 
-  nonTechnicalEvent: 'entry.NON TECHNICAL EVENT', 
+  technicalEvent: 'entry.TECHNICAL EVENT',
+  nonTechnicalEvent: 'entry.NON TECHNICAL EVENT',
   };
 
 const RegistrationForm = () => {
@@ -95,15 +95,14 @@ const RegistrationForm = () => {
 
 
   return (
-    <section id="register" className="py-16 md:py-24 bg-gradient-to-b from-background/95 to-background backdrop-blur-sm">
+    <section id="register" className="py-16 md:py-24 backdrop-blur-sm"> {/* Removed background gradient */}
       <div className="container mx-auto px-4 flex justify-center">
-        <Card className="w-full max-w-2xl bg-card/80 backdrop-blur-sm shadow-xl border-accent/30">
+         {/* Removed bg-card/80 to rely on backdrop-blur and border */}
+        <Card className="w-full max-w-2xl backdrop-blur-md shadow-xl border border-accent/30">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl md:text-4xl font-bold text-accent">Register Now</CardTitle>
             <CardDescription className="text-muted-foreground">
               Secure your spot at VULNIX! Fill out the form below.
-              <br/>
-              {/* <span className="text-xs italic">(Ensure your Google Form URL and Field IDs are correctly set in the code)</span> */}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -114,7 +113,6 @@ const RegistrationForm = () => {
                 <Input
                   id="name"
                   {...register('name')}
-                  // placeholder="e.g., Ada Lovelace"
                   className="bg-input/70 border-border focus:border-accent focus:ring-accent"
                   aria-invalid={errors.name ? "true" : "false"}
                 />
@@ -128,7 +126,6 @@ const RegistrationForm = () => {
                   id="email"
                   type="email"
                   {...register('email')}
-                  // placeholder="e.g., google@gmail.com"
                   className="bg-input/70 border-border focus:border-accent focus:ring-accent"
                    aria-invalid={errors.email ? "true" : "false"}
                 />
@@ -141,7 +138,6 @@ const RegistrationForm = () => {
                 <Input
                   id="phoneNumber"
                   {...register('phoneNumber')}
-                  // placeholder="+919876543210"
                   className="bg-input/70 border-border focus:border-accent focus:ring-accent"
                   aria-invalid={errors.phoneNumber ? "true" : "false"}
                 />
@@ -154,7 +150,6 @@ const RegistrationForm = () => {
                  <Input
                    id="college"
                    {...register('college')}
-                  //  placeholder="e.g., Anna University"
                   className="bg-input/70 border-border focus:border-accent focus:ring-accent"
                    aria-invalid={errors.college ? "true" : "false"}
                  />
