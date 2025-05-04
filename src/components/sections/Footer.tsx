@@ -35,7 +35,7 @@ const Footer = () => {
           &copy; {currentYear} VULNIX`25 Symposium. All rights reserved.
         </p>
          <p className="text-xs mt-2">
-           Designed By <span className="text-primary">&lt;/&gt;</span> Bl4ckDot.
+           Designed By <span className="text-primary">&lt;/&gt;</span> Dwarak.
          </p>
       </div>
     </footer>
