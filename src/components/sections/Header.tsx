@@ -54,7 +54,8 @@ const Header: React.FC = () => {
                  <span className="sr-only">Toggle Menu</span>
                </Button>
              </SheetTrigger>
-             <SheetContent side="right" className="w-[250px] bg-sidebar border-l-border/50 p-6">
+             {/* Removed redundant bg-sidebar and border-l-border/50 */}
+             <SheetContent side="right" className="w-[250px] p-6">
                 {/* Mobile Menu Logo */}
                 <div className="mb-8">
                    <Link href="/" className="text-2xl font-bold text-primary glow-link" onClick={() => setIsMobileMenuOpen(false)}>
