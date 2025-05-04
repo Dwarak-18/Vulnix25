@@ -10,24 +10,24 @@ const MapSection = () => {
   return (
     <section
       id="location"
-      className="relative py-16 md:py-24 bg-gradient-to-b from-background/90 to-background/95 parallax-section overflow-hidden" // Added relative, parallax-section, overflow-hidden
-      style={{ backgroundImage: `url('https://picsum.photos/1920/1080')` }} // Added placeholder background image
-      data-ai-hint="cyberpunk futuristic map" // Added data-ai-hint
+      className="relative py-12 md:py-20 bg-gradient-to-b from-background/90 to-background/95 parallax-section overflow-hidden" // Reduced vertical padding (py-12 md:py-20)
+      style={{ backgroundImage: `url('https://giffiles.alphacoders.com/212/212812.gif')` }}
+      data-ai-hint="cyberpunk futuristic map"
     >
       {/* Overlay for contrast */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90 z-0"></div>
 
       {/* Content container */}
-      <div className="container mx-auto px-4 relative z-10"> {/* Added relative z-10 */}
-        <Card className="max-w-5xl mx-auto bg-card/80 backdrop-blur-md border-secondary/30 shadow-xl overflow-hidden"> {/* Adjusted background opacity and blur */}
-          <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
-              <MapPin className="h-12 w-12 text-secondary" />
+      <div className="container mx-auto px-4 relative z-10">
+        <Card className="max-w-4xl mx-auto bg-card/80 backdrop-blur-md border-secondary/30 shadow-xl overflow-hidden"> {/* Reduced max-width (max-w-4xl) */}
+          <CardHeader className="text-center pb-4"> {/* Reduced bottom padding */}
+            <div className="flex justify-center mb-3"> {/* Reduced margin bottom */}
+              <MapPin className="h-10 w-10 text-secondary" /> {/* Slightly smaller icon */}
             </div>
-            <CardTitle className="text-3xl md:text-4xl font-bold text-secondary">Event Location</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl font-bold text-secondary">Event Location</CardTitle> {/* Slightly smaller title */}
           </CardHeader>
-          <CardContent className="px-2 pb-2 md:px-6 md:pb-6">
-             <p className="text-center text-muted-foreground mb-6 text-lg">
+          <CardContent className="px-4 pb-4 md:px-6 md:pb-6"> {/* Adjusted padding */}
+             <p className="text-center text-muted-foreground mb-4 text-base md:text-lg"> {/* Adjusted text size and margin */}
                Dhanalakshmi Srinivasan College of Engineering and Technology, East Coast Road, Mamallapuram, Chennai - 603104.
              </p>
             <div className="aspect-video w-full rounded-lg overflow-hidden border border-border/50 shadow-inner">
