@@ -9,12 +9,23 @@ const EventsSection = () => {
   const nonTechnicalEvents = eventsData.filter(event => event.type === 'Non-Technical');
 
   return (
-    <section id="events" className="py-16 md:py-24 bg-gradient-to-b from-background/80 to-background/95 backdrop-blur-sm">
-      <div className="container mx-auto px-4">
+    <section
+      id="events"
+      className="relative py-16 md:py-24 overflow-hidden parallax-section" // Added relative, overflow-hidden, parallax-section
+      style={{
+        backgroundImage: `url('https://4kwallpapers.com/images/walls/thumbs_3t/14859.jpg')`, // Added background image
+      }}
+      data-ai-hint="cyberpunk circuit board abstract" // Added data-ai-hint
+    >
+      {/* Overlay for contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90 z-0"></div>
+
+      {/* Content container */}
+      <div className="container mx-auto px-4 relative z-10"> {/* Added relative z-10 */}
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-primary drop-shadow-md">Explore the Events</h2>
 
         <Tabs defaultValue="technical" className="w-full max-w-5xl mx-auto">
-          <TabsList className="grid w-full grid-cols-2 bg-card/50 border border-border backdrop-blur-sm mb-8">
+          <TabsList className="grid w-full grid-cols-2 bg-card/60 border border-border/50 backdrop-blur-sm mb-8"> {/* Adjusted background opacity */}
             <TabsTrigger value="technical" className="data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground">
               <BrainCircuit className="mr-2 h-5 w-5"/> Technical
             </TabsTrigger>
