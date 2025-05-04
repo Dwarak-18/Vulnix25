@@ -11,7 +11,7 @@ interface LoadingScreenProps {
   duration?: number; // Approximate duration for the loading simulation in ms
 }
 
-const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, duration = 1500 }) => {
+const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, duration = 5000 }) => { // Changed duration default to 5000
   const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [isStarting, setIsStarting] = useState(true); // State to manage initial delay
@@ -44,7 +44,7 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, d
           return 100;
         }
         // Increment progress; make it non-linear for a nicer feel
-        const increment = Math.random() * 5 + 1; // Random increment between 1 and 6
+        const increment = Math.random() * (100 / (duration / intervalTime)) + (100 / (duration / intervalTime) / 4); // Adjust increment based on duration
         return Math.min(prevProgress + increment, 100);
       });
     }, intervalTime); // Update progress more frequently for smoother animation
