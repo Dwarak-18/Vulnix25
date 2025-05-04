@@ -1,4 +1,5 @@
 
+
 'use client'; // Add this directive
 
 import React from 'react';
@@ -52,8 +53,8 @@ const HeroSection = () => {
             className="bg-accent text-accent-foreground hover:bg-accent/90 animate-pulse-glow shadow-lg"
             onClick={handleScroll} // Use the client-side safe handler to scroll to #timeline
           >
-            View Timeline {/* Changed button text */}
-            <CalendarDays className="ml-2 h-5 w-5" /> {/* Changed icon */}
+            Discover Events {/* Changed button text */}
+            <CalendarDays className="ml-2 h-5 w-5" /> {/* Kept icon */}
           </Button>
           <Button
             size="lg"
@@ -74,4 +75,5 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
 
