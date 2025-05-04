@@ -54,7 +54,7 @@ const Header: React.FC = () => {
                  <span className="sr-only">Toggle Menu</span>
                </Button>
              </SheetTrigger>
-             {/* Removed redundant bg-sidebar and border-l-border/50 */}
+             {/* SheetContent inherits styling from sheet.tsx */}
              <SheetContent side="right" className="w-[250px] p-6">
                 {/* Mobile Menu Logo */}
                 <div className="mb-8">

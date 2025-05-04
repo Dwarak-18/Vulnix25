@@ -27,14 +27,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       {/* Force dark theme based on cyberpunk palette */}
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>        
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="relative">
           <Header/>
           {children}
         <Toaster />
         </div>
           {/* Add Toaster here */}
-      </body> 
+      </body>
     </html>
   );
 }

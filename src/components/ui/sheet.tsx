@@ -32,16 +32,16 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  "fixed z-50 gap-4 bg-sidebar p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500", // Changed bg-background to bg-sidebar
+  "fixed z-50 gap-4 bg-sidebar p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 text-sidebar-foreground", // Use sidebar background and foreground
   {
     variants: {
       side: {
-        top: "inset-x-0 top-0 border-b border-border/50 data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top", // Added border color explicitly if needed
+        top: "inset-x-0 top-0 border-b border-sidebar-border data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top", // Use sidebar border
         bottom:
-          "inset-x-0 bottom-0 border-t border-border/50 data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom", // Added border color explicitly if needed
-        left: "inset-y-0 left-0 h-full w-3/4 border-r border-border/50 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm", // Added border color explicitly if needed
+          "inset-x-0 bottom-0 border-t border-sidebar-border data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom", // Use sidebar border
+        left: "inset-y-0 left-0 h-full w-3/4 border-r border-sidebar-border data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm", // Use sidebar border
         right:
-          "inset-y-0 right-0 h-full w-3/4 border-l border-border/50 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm", // Added border color explicitly if needed
+          "inset-y-0 right-0 h-full w-3/4 border-l border-sidebar-border data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm", // Use sidebar border
       },
     },
     defaultVariants: {
@@ -109,7 +109,7 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn("text-lg font-semibold text-foreground", className)}
+    className={cn("text-lg font-semibold text-foreground", className)} // Keep foreground for titles maybe, or use sidebar-foreground
     {...props}
   />
 ))
@@ -121,7 +121,7 @@ const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("text-sm text-muted-foreground", className)} // Use muted-foreground, or sidebar-muted-foreground if defined
     {...props}
   />
 ))
