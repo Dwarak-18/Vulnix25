@@ -1,5 +1,5 @@
 
-'use client'; // Add this directive
+'use client';
 
 import React, { useState } from 'react';
 import { getSortedEvents, type Event } from '@/constants/events';
@@ -20,8 +20,6 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
       <DialogContent className="sm:max-w-[425px] bg-popover backdrop-blur-md border-accent border">
         <DialogHeader>
           <DialogTitle>{event.name}</DialogTitle>
-          {/* Optional: Keep a simple description if needed */}
-          {/* <DialogDescription>Details for the selected event.</DialogDescription> */}
         </DialogHeader>
         {/* Moved complex content outside DialogDescription to avoid invalid nesting */}
         <div className="space-y-3 text-sm py-4">
@@ -99,8 +97,17 @@ const TimelineSection = () => {
   const handleModalClose = () => setSelectedEvent(null);
 
   return (
-    <section id="timeline" className="py-16 md:py-24 bg-background/90 backdrop-blur-sm">
-      <div className="container mx-auto px-4 max-w-3xl"> {/* Constrain width for better vertical layout */}
+    <section
+      id="timeline"
+      className="relative py-16 md:py-24 bg-background/90 backdrop-blur-sm parallax-section overflow-hidden"
+      style={{backgroundImage: "url('https://wallpaperaccess.com/download/cyberpunk-pixel-5797258')"}}
+      data-ai-hint="cyberpunk pixel art technology"
+    >
+       {/* Overlay for contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90 z-0"></div>
+
+      {/* Content container */}
+      <div className="container mx-auto px-4 max-w-3xl relative z-10"> {/* Added relative z-10 */}
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-secondary drop-shadow-md">Event Timeline</h2>
         <div className="relative">
           {/* Vertical Line */}

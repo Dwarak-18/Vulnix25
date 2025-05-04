@@ -13,7 +13,7 @@ const EventsSection = () => {
       id="events"
       className="relative py-16 md:py-24 overflow-hidden parallax-section" // Added relative, overflow-hidden, parallax-section
       style={{
-        backgroundImage: `url('https://4kwallpapers.com/images/walls/thumbs_3t/14859.jpg')`, // Added background image
+        backgroundImage: `url('https://wallpaperaccess.com/download/cyberpunk-neon-3455931')`, // Added background image
       }}
       data-ai-hint="cyberpunk circuit board abstract" // Added data-ai-hint
     >
