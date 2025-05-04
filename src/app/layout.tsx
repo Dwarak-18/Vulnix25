@@ -1,8 +1,10 @@
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google'; // Assuming Geist font setup
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"; // Import Toaster
 import Header from '@/components/sections/Header';
+import LayoutClientWrapper from '@/components/common/LayoutClientWrapper'; // Import the wrapper
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,12 +30,14 @@ export default function RootLayout({
     <html lang="en" className="dark">
       {/* Force dark theme based on cyberpunk palette */}
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="relative">
-          <Header/>
-          {children}
-        <Toaster />
-        </div>
-          {/* Add Toaster here */}
+        {/* Wrap Header and children in the client wrapper */}
+        <LayoutClientWrapper>
+           <div className="relative">
+             <Header/>
+             {children}
+           </div>
+        </LayoutClientWrapper>
+        <Toaster /> {/* Toaster remains outside the main conditional rendering */}
       </body>
     </html>
   );
