@@ -1,15 +1,16 @@
-
 'use client';
 
 import React, { useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import Image from 'next/image'; // Import next/image
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog'; // Import Dialog components
 import { eventsData } from '@/constants/events';
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from 'lucide-react';
@@ -40,6 +41,7 @@ const FORM_FIELDS_MAPPING = {
 
 const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); // State for payment modal
   const { toast } = useToast();
   const { register, handleSubmit, control, formState: { errors }, reset, setValue } = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
@@ -77,11 +79,12 @@ const RegistrationForm = () => {
       });
 
       toast({
-        title: "Registration Successful!",
-        description: "Your details have been submitted. See you at VULNIX!",
+        title: "Registration Submitted!",
+        description: "Please complete the payment to confirm your spot.",
         variant: "default", // Use default (or could customize)
       });
       reset(); // Clear the form
+      setIsPaymentModalOpen(true); // Open the payment modal
     } catch (error) {
       console.error('Form submission error:', error);
       toast({
@@ -96,121 +99,169 @@ const RegistrationForm = () => {
 
 
   return (
-    <section id="register" className="py-16 md:py-24 backdrop-blur-sm"> {/* Removed background gradient */}
-      <div className="container mx-auto px-4 flex justify-center">
-         {/* Removed bg-card/80 to rely on backdrop-blur and border */}
-        <Card className="w-full max-w-2xl backdrop-blur-md shadow-xl border border-accent/30">
-          <CardHeader className="text-center">
-            <CardTitle className="text-3xl md:text-4xl font-bold text-accent">Register Now</CardTitle>
-            <CardDescription className="text-muted-foreground">
-              Secure your spot at VULNIX! Fill out the form below.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {/* Name Field */}
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-foreground/80">Full Name</Label>
-                <Input
-                  id="name"
-                  {...register('name')}
-                  className="bg-input/70 border-border focus:border-accent focus:ring-accent"
-                  aria-invalid={errors.name ? "true" : "false"}
-                />
-                {errors.name && <p className="text-destructive text-xs mt-1">{errors.name.message}</p>}
-              </div>
+    <>
+      <section id="register" className="py-16 md:py-24 backdrop-blur-sm"> {/* Removed background gradient */}
+        <div className="container mx-auto px-4 flex justify-center">
+           {/* Removed bg-card/80 to rely on backdrop-blur and border */}
+          <Card className="w-full max-w-2xl backdrop-blur-md shadow-xl border border-accent/30">
+            <CardHeader className="text-center">
+              <CardTitle className="text-3xl md:text-4xl font-bold text-accent">Register Now</CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Secure your spot at VULNIX! Fill out the form below.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                {/* Name Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-foreground/80">Full Name</Label>
+                  <Input
+                    id="name"
+                    {...register('name')}
+                    className="bg-input/70 border-border focus:border-accent focus:ring-accent"
+                    aria-invalid={errors.name ? "true" : "false"}
+                  />
+                  {errors.name && <p className="text-destructive text-xs mt-1">{errors.name.message}</p>}
+                </div>
 
-              {/* Email Field */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-foreground/80">Email Address</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  {...register('email')}
-                  className="bg-input/70 border-border focus:border-accent focus:ring-accent"
-                   aria-invalid={errors.email ? "true" : "false"}
-                />
-                 {errors.email && <p className="text-destructive text-xs mt-1">{errors.email.message}</p>}
-              </div>
+                {/* Email Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-foreground/80">Email Address</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    {...register('email')}
+                    className="bg-input/70 border-border focus:border-accent focus:ring-accent"
+                     aria-invalid={errors.email ? "true" : "false"}
+                  />
+                   {errors.email && <p className="text-destructive text-xs mt-1">{errors.email.message}</p>}
+                </div>
 
-              {/* Phone Number Field */}
-              <div className="space-y-2">
-                <Label htmlFor="phoneNumber" className="text-foreground/80">Phone Number</Label>
-                <Input
-                  id="phoneNumber"
-                  {...register('phoneNumber')}
-                  className="bg-input/70 border-border focus:border-accent focus:ring-accent"
-                  aria-invalid={errors.phoneNumber ? "true" : "false"}
-                />
-                {errors.phoneNumber && <p className="text-destructive text-xs mt-1">{errors.phoneNumber.message}</p>}
-              </div>
+                {/* Phone Number Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="phoneNumber" className="text-foreground/80">Phone Number</Label>
+                  <Input
+                    id="phoneNumber"
+                    {...register('phoneNumber')}
+                    className="bg-input/70 border-border focus:border-accent focus:ring-accent"
+                    aria-invalid={errors.phoneNumber ? "true" : "false"}
+                  />
+                  {errors.phoneNumber && <p className="text-destructive text-xs mt-1">{errors.phoneNumber.message}</p>}
+                </div>
 
-              {/* College Field */}
-               <div className="space-y-2">
-                 <Label htmlFor="college" className="text-foreground/80">College Name</Label>
-                 <Input
-                   id="college"
-                   {...register('college')}
-                  className="bg-input/70 border-border focus:border-accent focus:ring-accent"
-                   aria-invalid={errors.college ? "true" : "false"}
+                {/* College Field */}
+                 <div className="space-y-2">
+                   <Label htmlFor="college" className="text-foreground/80">College Name</Label>
+                   <Input
+                     id="college"
+                     {...register('college')}
+                    className="bg-input/70 border-border focus:border-accent focus:ring-accent"
+                     aria-invalid={errors.college ? "true" : "false"}
+                   />
+                   {errors.college && <p className="text-destructive text-xs mt-1">{errors.college.message}</p>}
+                 </div>
+
+                 {/* Year Field */}
+                 <div className="space-y-2">
+                   <Label htmlFor="year" className="text-foreground/80">Year of Study</Label>
+                   <Select onValueChange={(value) => setValue('year', value)} name="year">
+                      <SelectTrigger id="year" className="bg-input/70 border-border focus:ring-accent" aria-invalid={errors.year ? "true" : "false"}>
+                       <SelectValue placeholder="Select your year" />
+                     </SelectTrigger>
+                     <SelectContent className="bg-popover border-border">
+                       <SelectItem value="1st Year">1st Year</SelectItem>
+                       <SelectItem value="2nd Year">2nd Year</SelectItem>
+                       <SelectItem value="3rd Year">3rd Year</SelectItem>
+                       <SelectItem value="4th Year">4th Year</SelectItem>
+                       <SelectItem value="Other">Other</SelectItem>
+                     </SelectContent>
+                   </Select>
+                    {errors.year && <p className="text-destructive text-xs mt-1">{errors.year.message}</p>}
+                 </div>
+
+                 {/* Event Selection Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="event" className="text-foreground/80">Select Event</Label>
+                   <Select onValueChange={(value) => setValue('event', value)} name="event">
+                     <SelectTrigger id="event" className="bg-input/70 border-border focus:ring-accent" aria-invalid={errors.event ? "true" : "false"}>
+                       <SelectValue placeholder="Choose an event to register for" />
+                     </SelectTrigger>
+                     <SelectContent className="bg-popover border-border max-h-60">
+                       <SelectItem value="General Admission">General Admission (Attend All)</SelectItem>
+                       {eventsData.map((event) => (
+                         <SelectItem key={event.id} value={event.name}>
+                           {event.name} ({event.type})
+                         </SelectItem>
+                       ))}
+                     </SelectContent>
+                   </Select>
+                   {errors.event && <p className="text-destructive text-xs mt-1">{errors.event.message}</p>}
+                 </div>
+
+
+                <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg animate-pulse-glow" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                     <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...
+                     </>
+                   ) : (
+                     'Register for VULNIX'
+                   )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Payment Details Modal */}
+      <Dialog open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
+        <DialogContent className="sm:max-w-[480px] bg-card border-accent/50">
+          <DialogHeader>
+            <DialogTitle className="text-accent">Payment Information</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
+              Scan the QR code or use the details below to complete your payment.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4 space-y-4">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-[200px] h-[200px] bg-muted rounded-md flex items-center justify-center border border-border">
+                {/* Placeholder for QR Code */}
+                <Image
+                   src="https://picsum.photos/200/200" // Placeholder image URL
+                   alt="Payment QR Code"
+                   width={200}
+                   height={200}
+                   data-ai-hint="payment QR code"
+                   className="rounded-md"
                  />
-                 {errors.college && <p className="text-destructive text-xs mt-1">{errors.college.message}</p>}
-               </div>
-
-               {/* Year Field */}
-               <div className="space-y-2">
-                 <Label htmlFor="year" className="text-foreground/80">Year of Study</Label>
-                 <Select onValueChange={(value) => setValue('year', value)} name="year">
-                    <SelectTrigger id="year" className="bg-input/70 border-border focus:ring-accent" aria-invalid={errors.year ? "true" : "false"}>
-                     <SelectValue placeholder="Select your year" />
-                   </SelectTrigger>
-                   <SelectContent className="bg-popover border-border">
-                     <SelectItem value="1st Year">1st Year</SelectItem>
-                     <SelectItem value="2nd Year">2nd Year</SelectItem>
-                     <SelectItem value="3rd Year">3rd Year</SelectItem>
-                     <SelectItem value="4th Year">4th Year</SelectItem>
-                     <SelectItem value="Other">Other</SelectItem>
-                   </SelectContent>
-                 </Select>
-                  {errors.year && <p className="text-destructive text-xs mt-1">{errors.year.message}</p>}
-               </div>
-
-               {/* Event Selection Field */}
-              <div className="space-y-2">
-                <Label htmlFor="event" className="text-foreground/80">Select Event</Label>
-                 <Select onValueChange={(value) => setValue('event', value)} name="event">
-                   <SelectTrigger id="event" className="bg-input/70 border-border focus:ring-accent" aria-invalid={errors.event ? "true" : "false"}>
-                     <SelectValue placeholder="Choose an event to register for" />
-                   </SelectTrigger>
-                   <SelectContent className="bg-popover border-border max-h-60">
-                     <SelectItem value="General Admission">General Admission (Attend All)</SelectItem>
-                     {eventsData.map((event) => (
-                       <SelectItem key={event.id} value={event.name}>
-                         {event.name} ({event.type})
-                       </SelectItem>
-                     ))}
-                   </SelectContent>
-                 </Select>
-                 {errors.event && <p className="text-destructive text-xs mt-1">{errors.event.message}</p>}
-               </div>
-
-
-              <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg animate-pulse-glow" disabled={isSubmitting}>
-                {isSubmitting ? (
-                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...
-                   </>
-                 ) : (
-                   'Register for VULNIX'
-                 )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    </section>
+              </div>
+              <p className="text-sm text-center text-muted-foreground">
+                Scan the QR code using your preferred UPI app.
+              </p>
+            </div>
+            <div className="text-center space-y-1 text-sm">
+               <p><span className="font-semibold text-foreground">UPI ID:</span> <span className="font-mono text-accent">your-upi-id@bank</span></p>
+               <p className="text-xs text-muted-foreground">(Or use bank transfer)</p>
+               <p><span className="font-semibold text-foreground">Account Name:</span> VULNIX Events</p>
+               <p><span className="font-semibold text-foreground">Account Number:</span> 1234567890</p>
+               <p><span className="font-semibold text-foreground">IFSC Code:</span> BANK0001234</p>
+            </div>
+            <p className="text-xs text-center text-destructive/80 pt-2">
+              Ensure you enter the correct details. Registration is confirmed only after successful payment.
+            </p>
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+             <Button type="button" variant="secondary" onClick={() => setIsPaymentModalOpen(false)}>
+               Close
+             </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 
 export default RegistrationForm;
-
