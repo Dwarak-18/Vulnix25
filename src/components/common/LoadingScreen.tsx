@@ -73,16 +73,30 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, d
   return (
     <div
       className={cn(
-        'fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background transition-opacity duration-500 ease-out',
-        isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        'fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[hsl(var(--background-start-hsl))] transition-opacity duration-500 ease-out', // Base solid background
+        isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none' // Overall fade-out
       )}
     >
-      <div className="w-full max-w-md p-8 text-center">
-         {/* Optional: Add a pulsing logo or icon */}
+      {/* Gradient Overlay */}
+      <div
+        className={cn(
+          "absolute inset-0 -z-10 bg-gradient-to-br from-[hsl(var(--background-start-hsl))] to-[hsl(var(--background-end-hsl))]", // The target gradient
+        )}
+        style={{
+             opacity: isVisible ? progress / 100 : 0, // Dynamic opacity based on progress
+             transition: 'opacity 0.1s linear' // Smooth opacity transition as progress updates
+             }}
+      />
+
+      {/* Content Container - ensure it's above the overlay */}
+      <div className="relative z-10 w-full max-w-md p-8 text-center">
+         {/* Logo */}
          <div className="mb-8 text-4xl font-bold text-primary glow-link">
             VULNIX
          </div>
+         {/* Progress Bar */}
         <Progress value={progress} className="w-full h-2 bg-muted border border-border/50" />
+        {/* Text */}
         <p className="mt-4 text-lg font-mono text-accent">
           Loading... {Math.round(progress)}%
         </p>
@@ -95,3 +109,4 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, d
 };
 
 export default LoadingScreen;
+
