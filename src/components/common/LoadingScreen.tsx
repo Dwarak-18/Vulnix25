@@ -11,7 +11,7 @@ interface LoadingScreenProps {
   duration?: number; // Approximate duration for the loading simulation in ms
 }
 
-const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, duration = 5000 }) => { // Changed duration default to 5000
+const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, duration = 5000 }) => {
   const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [isStarting, setIsStarting] = useState(true); // State to manage initial delay
@@ -29,7 +29,7 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, d
   useEffect(() => {
     if (isStarting) return; // Don't start interval if we are in initial delay phase
 
-    const intervalTime = Math.max(10, duration / 100); // Calculate interval time for smooth progress over duration
+    const intervalTime = Math.max(10, duration / 100); // Calculate interval time for smooth progress
 
     const timer = setInterval(() => {
       setProgress((prevProgress) => {
@@ -43,11 +43,27 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, d
            }, 300);
           return 100;
         }
-        // Increment progress; make it non-linear for a nicer feel
-        const increment = Math.random() * (100 / (duration / intervalTime)) + (100 / (duration / intervalTime) / 4); // Adjust increment based on duration
+
+        let increment;
+        // Phase 1: Fast (0-25%) - Target ~0.5s
+        if (prevProgress < 25) {
+          // Need to cover 25% in ~10 intervals (0.5s / 50ms)
+          increment = 2.5 + Math.random() * 1; // Base 2.5% + random 0-1%
+        }
+        // Phase 2: Standard (25-75%) - Target ~3.5s
+        else if (prevProgress < 75) {
+          // Need to cover 50% in ~70 intervals (3.5s / 50ms)
+          increment = 0.7 + Math.random() * 0.5; // Base ~0.71% + random 0-0.5%
+        }
+        // Phase 3: Quick (75-100%) - Target ~1s
+        else {
+           // Need to cover 25% in ~20 intervals (1s / 50ms)
+           increment = 1.25 + Math.random() * 0.75; // Base 1.25% + random 0-0.75%
+        }
+
         return Math.min(prevProgress + increment, 100);
       });
-    }, intervalTime); // Update progress more frequently for smoother animation
+    }, intervalTime); // Update progress frequently
 
     return () => {
       clearInterval(timer);
@@ -63,7 +79,7 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, d
     >
       <div className="w-full max-w-md p-8 text-center">
          {/* Optional: Add a pulsing logo or icon */}
-         <div className="mb-8 text-4xl font-bold text-primary animate-pulse">
+         <div className="mb-8 text-4xl font-bold text-primary glow-link">
             VULNIX
          </div>
         <Progress value={progress} className="w-full h-2 bg-muted border border-border/50" />
@@ -79,4 +95,3 @@ const LoadingScreen: FC<LoadingScreenProps> = ({ onLoaded, initialDelay = 200, d
 };
 
 export default LoadingScreen;
-
