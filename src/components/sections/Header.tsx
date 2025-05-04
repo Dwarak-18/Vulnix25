@@ -1,4 +1,3 @@
-
 'use client'; // Add this directive for useState and event handlers
 
 import React, { useState } from 'react';
@@ -10,6 +9,7 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetTitle, // Import SheetTitle
 } from "@/components/ui/sheet";
 import { cn } from '@/lib/utils';
 
@@ -56,6 +56,8 @@ const Header: React.FC = () => {
              </SheetTrigger>
              {/* SheetContent inherits styling from sheet.tsx */}
              <SheetContent side="right" className="w-[250px] p-6">
+                {/* Add sr-only Title for Accessibility */}
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 {/* Mobile Menu Logo */}
                 <div className="mb-8">
                    <Link href="/" className="text-2xl font-bold text-primary glow-link" onClick={() => setIsMobileMenuOpen(false)}>
