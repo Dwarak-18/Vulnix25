@@ -8,9 +8,18 @@ const MapSection = () => {
   const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3893.422597365!2d80.17801877488675!3d12.620258387663766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53ab5250243c71%3A0xbb338ff75412f3f5!2sDhanalakshmi%20Srinivasan%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1746295628509!5m2!1sen!2sin"; // Replace with the actual embed URL if needed
 
   return (
-    <section id="location" className="py-16 md:py-24 bg-gradient-to-b from-background/90 to-background/95 backdrop-blur-sm">
-      <div className="container mx-auto px-4">
-        <Card className="max-w-5xl mx-auto bg-card/70 border-secondary/30 shadow-xl overflow-hidden">
+    <section
+      id="location"
+      className="relative py-16 md:py-24 bg-gradient-to-b from-background/90 to-background/95 parallax-section overflow-hidden" // Added relative, parallax-section, overflow-hidden
+      style={{ backgroundImage: `url('https://picsum.photos/1920/1080')` }} // Added placeholder background image
+      data-ai-hint="cyberpunk futuristic map" // Added data-ai-hint
+    >
+      {/* Overlay for contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90 z-0"></div>
+
+      {/* Content container */}
+      <div className="container mx-auto px-4 relative z-10"> {/* Added relative z-10 */}
+        <Card className="max-w-5xl mx-auto bg-card/80 backdrop-blur-md border-secondary/30 shadow-xl overflow-hidden"> {/* Adjusted background opacity and blur */}
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
               <MapPin className="h-12 w-12 text-secondary" />
