@@ -5,6 +5,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"; // Import Toaster
 import Header from '@/components/sections/Header';
 import LayoutClientWrapper from '@/components/common/LayoutClientWrapper'; // Import the wrapper
+import BackgroundMusic from '@/components/common/BackgroundMusic'; // Import BackgroundMusic
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,7 +35,8 @@ export default function RootLayout({
         <LayoutClientWrapper>
            <div className="relative">
              <Header/>
-             {children}
+             <main>{children}</main> {/* Wrap children in main */}
+             <BackgroundMusic /> {/* Add the music component */}
            </div>
         </LayoutClientWrapper>
         <Toaster /> {/* Toaster remains outside the main conditional rendering */}
