@@ -1,9 +1,7 @@
 
-
 'use client'; // Add this directive
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { CalendarDays } from 'lucide-react'; // Changed icon to CalendarDays
 import CountdownTimer from '@/components/sections/CountdownTimer'; // Import the CountdownTimer
@@ -14,8 +12,10 @@ const HeroSection = () => {
     document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' }); // Changed target to 'timeline'
   };
 
-  const router = useRouter();
-  const handleRegisterClick = () => router.push('/register');
+  const handleRegisterClick = () => {
+      // Open the external Google Form link in a new tab
+      window.open('https://forms.gle/kpPKCXGsCG7aSuQf9', '_blank', 'noopener,noreferrer');
+    };
 
   // Target date: May 17, 2025
   const targetDate = new Date('2025-05-17T00:00:00').toISOString();
@@ -59,7 +59,7 @@ const HeroSection = () => {
           <Button
             size="lg"
             className="bg-accent text-accent-foreground hover:bg-accent/90 animate-pulse-glow shadow-lg"
-            onClick={handleRegisterClick}
+            onClick={handleRegisterClick} // Updated onClick handler
           >
             Register Now
           </Button>
@@ -75,5 +75,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-

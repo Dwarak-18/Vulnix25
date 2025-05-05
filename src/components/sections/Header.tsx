@@ -1,3 +1,4 @@
+
 'use client'; // Add this directive for useState and event handlers
 
 import React, { useState } from 'react';
@@ -13,13 +14,15 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from '@/lib/utils';
 
+const externalRegisterUrl = 'https://forms.gle/kpPKCXGsCG7aSuQf9';
+
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/#events", label: "Events" },
   { href: "/#timeline", label: "Timeline" },
   { href: "/#location", label: "Location" },
   { href: "/#about", label: "About" },
-  { href: "/register", label: "Register" },
+  { href: externalRegisterUrl, label: "Register", target: "_blank", rel: "noopener noreferrer" }, // Updated Register link
 ];
 
 const Header: React.FC = () => {
@@ -37,7 +40,12 @@ const Header: React.FC = () => {
           <ul className="flex space-x-6">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="glow-link text-sm hover:text-primary transition-colors">
+                <Link
+                  href={item.href}
+                  className="glow-link text-sm hover:text-primary transition-colors"
+                  target={item.target}
+                  rel={item.rel}
+                  >
                   {item.label}
                 </Link>
               </li>
@@ -76,6 +84,8 @@ const Header: React.FC = () => {
                                 "block py-2 text-lg text-sidebar-foreground hover:text-primary transition-colors glow-link",
                                 // Add active link styling if needed based on current route
                              )}
+                             target={item.target}
+                             rel={item.rel}
                              onClick={() => setIsMobileMenuOpen(false)} // Close sheet on link click
                            >
                              {item.label}
