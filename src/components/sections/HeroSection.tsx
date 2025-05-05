@@ -33,12 +33,12 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black/90 z-0"></div>
 
       <div className="relative z-10 p-4 flex flex-col items-center">
-        {/* Apply glow-link class for hover effect */}
-        <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-tight glow-link cursor-default"> {/* Changed cursor to default */}
+        {/* Apply glow-link class for hover effect and font-mono for cyberpunk style */}
+        <h1 className="text-5xl md:text-7xl font-mono font-extrabold mb-4 tracking-tight leading-tight glow-link cursor-default"> {/* Changed cursor to default and added font-mono */}
           <span className="text-primary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">VULN</span>
           <span className="text-secondary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">IX</span>
         </h1>
-        <p className="text-xl md:text-2xl mb-8 max-w-3xl text-muted-foreground font-light">
+        <p className="text-xl md:text-2xl mb-8 max-w-3xl text-muted-foreground font-light"> {/* Kept font-light (Geist Sans) for readability */}
           Explore the frontiers of cybersecurity. Engage, learn, and compete in VULNIX, the premier tech symposium.
         </p>
 
