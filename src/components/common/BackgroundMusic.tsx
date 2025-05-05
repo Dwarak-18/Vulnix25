@@ -14,7 +14,7 @@ const BackgroundMusic: React.FC = () => {
   // Placeholder URL - User needs to replace this with their actual music file URL
   // YouTube links (like https://youtu.be/cIto6qzW0Mc?si=Fy1va-1TLIiVZJ5R) cannot be used directly here.
   // You need a direct link to an audio file (e.g., .mp3, .ogg).
-  const musicSrc = '/assets/cyberpunk-background-music.mp3'; // Kept existing placeholder
+  const musicSrc = '/assets/cyberpunk-background-music.m4a'; // Kept existing placeholder
 
   // Create audio element only on the client
   useEffect(() => {
