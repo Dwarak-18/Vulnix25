@@ -12,7 +12,9 @@ const BackgroundMusic: React.FC = () => {
   const [isInteracted, setIsInteracted] = useState(false); // Track user interaction
 
   // Placeholder URL - User needs to replace this with their actual music file URL
-  const musicSrc = '/assets/cyberpunk-background-music.mp3'; // Example path
+  // YouTube links (like https://youtu.be/cIto6qzW0Mc?si=Fy1va-1TLIiVZJ5R) cannot be used directly here.
+  // You need a direct link to an audio file (e.g., .mp3, .ogg).
+  const musicSrc = '/assets/cyberpunk-background-music.mp3'; // Kept existing placeholder
 
   // Create audio element only on the client
   useEffect(() => {
@@ -20,6 +22,13 @@ const BackgroundMusic: React.FC = () => {
       audioRef.current = new Audio(musicSrc);
       audioRef.current.loop = true;
       audioRef.current.volume = 0.3; // Start with a lower volume
+    }
+    // Cleanup function to pause and nullify audio element on unmount
+    return () => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current = null;
+        }
     }
   }, [musicSrc]);
 
@@ -47,7 +56,7 @@ const BackgroundMusic: React.FC = () => {
 
   // Attempt to play only after user interaction if not already playing
   useEffect(() => {
-    if (isInteracted && !isPlaying && audioRef.current) {
+    if (isInteracted && !isPlaying && audioRef.current?.paused) { // Check if paused before playing
        audioRef.current.play().then(() => {
          setIsPlaying(true);
        }).catch(error => {
@@ -55,7 +64,7 @@ const BackgroundMusic: React.FC = () => {
          setIsPlaying(false);
        });
     }
-    // Dependency array includes isInteracted to trigger play attempt after interaction
+    // Dependency array includes isInteracted and isPlaying
   }, [isInteracted, isPlaying]);
 
    // Add a listener for the first user interaction to enable autoplay attempt
@@ -63,19 +72,29 @@ const BackgroundMusic: React.FC = () => {
      const handleFirstInteraction = () => {
        if (!isInteracted) {
          setIsInteracted(true);
+         // Optional: Attempt to play immediately on first interaction if not playing
+         // This might be redundant with the effect above, but ensures immediate attempt
+         if(audioRef.current && audioRef.current.paused){
+             audioRef.current.play().then(() => setIsPlaying(true)).catch(console.error);
+         }
        }
-       window.removeEventListener('click', handleFirstInteraction);
-       window.removeEventListener('keydown', handleFirstInteraction);
+       // Remove listeners after first interaction
+       window.removeEventListener('click', handleFirstInteraction, { capture: true });
+       window.removeEventListener('keydown', handleFirstInteraction, { capture: true });
+       window.removeEventListener('touchstart', handleFirstInteraction, { capture: true }); // Added touchstart
      };
 
-     window.addEventListener('click', handleFirstInteraction);
-     window.addEventListener('keydown', handleFirstInteraction);
+     // Use capture phase to catch interaction earlier
+     window.addEventListener('click', handleFirstInteraction, { capture: true });
+     window.addEventListener('keydown', handleFirstInteraction, { capture: true });
+     window.addEventListener('touchstart', handleFirstInteraction, { capture: true }); // Added touchstart
 
      return () => {
-       window.removeEventListener('click', handleFirstInteraction);
-       window.removeEventListener('keydown', handleFirstInteraction);
+       window.removeEventListener('click', handleFirstInteraction, { capture: true });
+       window.removeEventListener('keydown', handleFirstInteraction, { capture: true });
+       window.removeEventListener('touchstart', handleFirstInteraction, { capture: true }); // Added touchstart
      };
-   }, [isInteracted]);
+   }, [isInteracted]); // Re-run if isInteracted changes (though it only changes once)
 
 
   return (
@@ -92,10 +111,10 @@ const BackgroundMusic: React.FC = () => {
       >
         {isPlaying ? <Music className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
       </Button>
-       {/* Inform user if interaction is needed */}
-       {!isInteracted && !isPlaying && (
+       {/* Inform user if interaction is needed - simplified, less intrusive */}
+       {/* {!isInteracted && !isPlaying && (
          <p className="text-xs text-muted-foreground mt-1 text-center hidden">Click to enable sound</p>
-       )}
+       )} */}
     </div>
   );
 };
