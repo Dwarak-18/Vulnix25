@@ -3,13 +3,14 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import { Music, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react'; // Import Volume2 for unmuted state
 import { cn } from '@/lib/utils';
 
 const BackgroundMusic: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Start muted
   const [isInteracted, setIsInteracted] = useState(false); // Track user interaction
+  const [canPlay, setCanPlay] = useState(false); // Track if audio can play
 
   // Placeholder URL - User needs to replace this with their actual music file URL
   // YouTube links (like https://youtu.be/cIto6qzW0Mc?si=Fy1va-1TLIiVZJ5R) cannot be used directly here.
@@ -21,7 +22,7 @@ const BackgroundMusic: React.FC = () => {
     if (typeof window !== 'undefined') {
       audioRef.current = new Audio(musicSrc);
       audioRef.current.loop = true;
-      audioRef.current.volume = 0.3; // Start with a lower volume
+      audioRef.current.muted = isMuted; // Set initial muted state
     }
     // Cleanup function to pause and nullify audio element on unmount
     return () => {
@@ -30,71 +31,64 @@ const BackgroundMusic: React.FC = () => {
             audioRef.current = null;
         }
     }
-  }, [musicSrc]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [musicSrc]); // Only re-run if musicSrc changes
 
-  const togglePlayPause = useCallback(() => {
-    if (!audioRef.current) return;
-
-    if (!isInteracted) {
-      setIsInteracted(true); // Mark interaction
-    }
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      // Attempt to play, handle potential errors (e.g., browser restrictions)
+  // Function to attempt playing audio
+  const attemptPlay = useCallback(() => {
+    if (audioRef.current && audioRef.current.paused) {
       audioRef.current.play().then(() => {
-        setIsPlaying(true);
+        setCanPlay(true);
+        // Apply muted state immediately after play starts
+        if(audioRef.current) audioRef.current.muted = isMuted;
       }).catch(error => {
         console.error("Audio playback failed:", error);
-        // Maybe show a message to the user or simply update state if needed
-        setIsPlaying(false);
+        setCanPlay(false);
       });
+    } else if (audioRef.current && !audioRef.current.paused) {
+        // Already playing, ensure muted state is correct
+        setCanPlay(true);
+        audioRef.current.muted = isMuted;
     }
-  }, [isPlaying, isInteracted]);
+  }, [isMuted]); // Depend on isMuted
 
-  // Attempt to play only after user interaction if not already playing
+  // Handle first user interaction
   useEffect(() => {
-    if (isInteracted && !isPlaying && audioRef.current?.paused) { // Check if paused before playing
-       audioRef.current.play().then(() => {
-         setIsPlaying(true);
-       }).catch(error => {
-         console.error("Audio playback failed after interaction:", error);
-         setIsPlaying(false);
-       });
+    const handleFirstInteraction = () => {
+      if (!isInteracted) {
+        setIsInteracted(true);
+        attemptPlay(); // Attempt to play on first interaction
+      }
+      // Remove listeners after first interaction
+      window.removeEventListener('click', handleFirstInteraction, { capture: true });
+      window.removeEventListener('keydown', handleFirstInteraction, { capture: true });
+      window.removeEventListener('touchstart', handleFirstInteraction, { capture: true });
+    };
+
+    window.addEventListener('click', handleFirstInteraction, { capture: true });
+    window.addEventListener('keydown', handleFirstInteraction, { capture: true });
+    window.addEventListener('touchstart', handleFirstInteraction, { capture: true });
+
+    return () => {
+      window.removeEventListener('click', handleFirstInteraction, { capture: true });
+      window.removeEventListener('keydown', handleFirstInteraction, { capture: true });
+      window.removeEventListener('touchstart', handleFirstInteraction, { capture: true });
+    };
+  }, [isInteracted, attemptPlay]);
+
+  // Toggle Mute/Unmute
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+
+    // If not playing yet (due to no interaction), try starting it now
+    if (!canPlay && isInteracted) {
+        attemptPlay();
     }
-    // Dependency array includes isInteracted and isPlaying
-  }, [isInteracted, isPlaying]);
 
-   // Add a listener for the first user interaction to enable autoplay attempt
-   useEffect(() => {
-     const handleFirstInteraction = () => {
-       if (!isInteracted) {
-         setIsInteracted(true);
-         // Optional: Attempt to play immediately on first interaction if not playing
-         // This might be redundant with the effect above, but ensures immediate attempt
-         if(audioRef.current && audioRef.current.paused){
-             audioRef.current.play().then(() => setIsPlaying(true)).catch(console.error);
-         }
-       }
-       // Remove listeners after first interaction
-       window.removeEventListener('click', handleFirstInteraction, { capture: true });
-       window.removeEventListener('keydown', handleFirstInteraction, { capture: true });
-       window.removeEventListener('touchstart', handleFirstInteraction, { capture: true }); // Added touchstart
-     };
-
-     // Use capture phase to catch interaction earlier
-     window.addEventListener('click', handleFirstInteraction, { capture: true });
-     window.addEventListener('keydown', handleFirstInteraction, { capture: true });
-     window.addEventListener('touchstart', handleFirstInteraction, { capture: true }); // Added touchstart
-
-     return () => {
-       window.removeEventListener('click', handleFirstInteraction, { capture: true });
-       window.removeEventListener('keydown', handleFirstInteraction, { capture: true });
-       window.removeEventListener('touchstart', handleFirstInteraction, { capture: true }); // Added touchstart
-     };
-   }, [isInteracted]); // Re-run if isInteracted changes (though it only changes once)
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    audioRef.current.muted = nextMuted;
+  };
 
 
   return (
@@ -102,19 +96,20 @@ const BackgroundMusic: React.FC = () => {
       <Button
         variant="ghost"
         size="icon"
-        onClick={togglePlayPause}
+        onClick={toggleMute} // Changed to toggleMute
         className={cn(
           "rounded-full bg-card/80 backdrop-blur-sm hover:bg-accent/20 hover:text-accent transition-colors",
-          isPlaying ? "text-accent" : "text-muted-foreground"
+          !isMuted ? "text-accent" : "text-muted-foreground" // Style based on muted state
         )}
-        aria-label={isPlaying ? "Pause background music" : "Play background music"}
+        aria-label={isMuted ? "Unmute background music" : "Mute background music"} // Updated aria-label
+        disabled={!isInteracted} // Disable button until user interacts
       >
-        {isPlaying ? <Music className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+        {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
       </Button>
        {/* Inform user if interaction is needed - simplified, less intrusive */}
-       {/* {!isInteracted && !isPlaying && (
-         <p className="text-xs text-muted-foreground mt-1 text-center hidden">Click to enable sound</p>
-       )} */}
+       {!isInteracted && (
+         <p className="text-[10px] text-muted-foreground/50 mt-1 text-center hidden md:block w-16">Click page to enable sound</p>
+       )}
     </div>
   );
 };

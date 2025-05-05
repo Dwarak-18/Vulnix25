@@ -6,11 +6,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { name: 'Twitter', icon: Twitter, url: 'https://twitter.com/yourhandle' }, // Replace with actual URLs
-    { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/yourhandle' },
-    { name: 'LinkedIn', icon: Linkedin, url: 'https://linkedin.com/in/yourprofile' },
-    { name: 'Facebook', icon: Facebook, url: 'https://facebook.com/yourpage' },
-     { name: 'GitHub', icon: Github, url: 'https://github.com/yourorg' }, // Example
+    // { name: 'Twitter', icon: Twitter, url: 'https://twitter.com/yourhandle' }, // Replace with actual URLs
+    { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/vulnix25?igsh=MThkd3pqcWxqNTk1eg%3D%3D' },
+    { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/company/dhanalakshmi-srinivasan-college-of-engineering-and-technology-autonomous/posts/?feedView=all' },
+    { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/share/16VfB7Aznu/' },
+    //  { name: 'GitHub', icon: Github, url: 'https://github.com/yourorg' }, // Example
   ];
 
   return (
