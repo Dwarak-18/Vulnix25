@@ -5,6 +5,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { CalendarDays } from 'lucide-react'; // Changed icon to CalendarDays
 import CountdownTimer from '@/components/sections/CountdownTimer'; // Import the CountdownTimer
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const HeroSection = () => {
   const handleScroll = () => {
@@ -33,6 +34,14 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black/90 z-0"></div>
 
       <div className="relative z-10 p-4 flex flex-col items-center">
+        {/* Announcement Alert */}
+        <Alert className="mb-4 w-full max-w-3xl bg-yellow-500 text-black">
+          <AlertTitle className="font-bold text-lg">
+            Exciting Cash Rewards!
+          </AlertTitle>
+          <AlertDescription>All Technical Events have cash prizes. Participate and win!</AlertDescription>
+        </Alert>
+
         {/* Apply glow-link class for hover effect and font-mono for cyberpunk style */}
         <h1 className="text-5xl md:text-7xl font-mono font-extrabold mb-4 tracking-tight leading-tight glow-link cursor-default"> {/* Changed cursor to default and added font-mono */}
           <span className="text-primary drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">VULN</span>

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Phone, User, X } from 'lucide-react'; // Added Phone, User, X icons
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog'; // Import Dialog components
-import { Button } from '@/components/ui/button'; // Import Button
+import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area'; // Import ScrollArea
 import { cn } from '@/lib/utils'; // Import cn
 
@@ -23,16 +23,28 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
       {/* Adjusted DialogContent styling for max height and overflow */}
       <DialogContent className="sm:max-w-lg bg-popover backdrop-blur-md border-accent border flex flex-col max-h-[85vh]">
         <DialogHeader className="flex-shrink-0">
-          <DialogTitle>{event.name}</DialogTitle>
-          <DialogDescription className="pt-2 text-sm">
-             {event.description}
-           </DialogDescription>
+            <DialogTitle>{event.name}</DialogTitle>
+            <DialogDescription className="pt-2 text-sm">
+              {event.description}
+            </DialogDescription>
         </DialogHeader>
 
         {/* Scrollable area for the main content */}
         <ScrollArea className="flex-grow overflow-y-auto pr-6 -mr-6"> {/* Added pr-6/-mr-6 for scrollbar padding */}
             <div className="space-y-3 text-sm py-4">
-               <Badge className="mb-2" variant={event.type === 'Technical' ? 'secondary' : 'default'}>
+              <Badge
+                className="mb-2"
+                variant={event.type === 'Technical' ? 'secondary' : 'default'}
+              >
+                {event.type === 'Technical' && (
+                  <div className="flex items-center">
+                    <Badge className="mr-2" variant="outline">
+                      BYOD
+                    </Badge>
+                    <p className="text-muted-foreground text-xs">Bring your own Device (laptop)</p>
+                  </div>
+                )}
+
                  {event.type}
                </Badge>
               <div className="flex items-center text-xs font-mono text-muted-foreground">
@@ -97,7 +109,7 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
                  )}
                </div>
             </div>
-         </ScrollArea>
+        </ScrollArea>
 
          {/* Explicit Close button in footer (optional, as X is usually present) */}
           {/* <DialogFooter className="flex-shrink-0 pt-4">
@@ -113,14 +125,14 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
 
 
 const TimelineEvent = ({ event, onEventClick }: { event: Event; onEventClick: () => void }) => {
-  const Icon = event.icon;
+   const Icon = event.icon;
   const badgeVariant = event.type === 'Technical' ? 'secondary' : 'default';
 
   return (
     <div className="relative pl-12 pb-8 cursor-pointer group" onClick={onEventClick}>
       {/* Vertical Line Segment (part of the main line) */}
       {/* Dot */}
-      <div className="absolute left-0 top-1 transform -translate-x-1/2 w-8 h-8 rounded-full bg-border flex items-center justify-center z-20 group-hover:scale-110 transition-transform">
+      <div className="absolute left-0 top-1 transform -translate-x-1/2 w-8 h-8 rounded-full bg-border flex items-center justify-center z-20 group-hover:scale-110 transition-transform ">
         <div className={cn(
             "w-6 h-6 rounded-full flex items-center justify-center",
              event.type === 'Technical' ? 'bg-secondary' : 'bg-primary'
@@ -131,7 +143,7 @@ const TimelineEvent = ({ event, onEventClick }: { event: Event; onEventClick: ()
                  )} />
         </div>
       </div>
-
+        
       {/* Card */}
       <Card className="bg-card/80 backdrop-blur-sm shadow-md transition-shadow group-hover:shadow-lg group-hover:shadow-accent/20 border border-border/30 group-hover:border-accent/50 ml-4">
         <CardHeader className="pb-2">
@@ -194,5 +206,6 @@ const TimelineSection = () => {
     </section>
   );
 };
+
 export default TimelineSection;
 

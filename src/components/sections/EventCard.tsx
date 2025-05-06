@@ -2,6 +2,7 @@ import React from 'react';
 import type { Event } from '@/constants/events';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Verified } from 'lucide-react';
 import { Clock } from 'lucide-react';
 
 interface EventCardProps {
@@ -27,6 +28,10 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       <CardContent className="flex-grow flex flex-col justify-between pt-0">
          <CardDescription className="text-sm text-muted-foreground mb-4 flex-grow">
            {event.description}
+           <p className='mt-2'>
+            <span className='font-bold flex items-center gap-2 text-accent'><Verified className='h-4 w-4'/> Certificate is provided.</span>
+            {/* <span className='font-semibold text-muted-foreground ml-1'> is provided.</span> */}
+           </p>
          </CardDescription>
          <div className="flex items-center text-xs text-accent font-mono mt-auto pt-2 border-t border-border/50">
            <Clock className="h-3 w-3 mr-1.5" />
