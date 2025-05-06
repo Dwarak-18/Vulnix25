@@ -18,8 +18,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'VULNIX Event Hub',
+  title: 'VULNIX`25', // Updated title
   description: 'VULNIX - College Symposium on Cybersecurity Awareness',
+  // Removed default icons/favicon references if any were here to prevent default icon display
+  icons: [],
 };
 
 export default function RootLayout({
