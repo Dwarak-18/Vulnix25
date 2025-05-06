@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description: 'VULNIX - College Symposium on Cybersecurity Awareness',
   icons: [
     // Reference the local icon file expected to be in the src/app directory
-    { rel: 'icon', url: '/cybersecurity.ico' },
+    { rel: 'icon', url: 'src/app/cybersecurity.ico' },
   ], // Ensures a specific favicon is linked via metadata
 
 };
