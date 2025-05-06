@@ -1,13 +1,15 @@
 
 'use client';
 
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { getSortedEvents, type Event } from '@/constants/events';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Phone, User } from 'lucide-react'; // Added Phone and User icons
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Clock, Phone, User, X } from 'lucide-react'; // Added Phone, User, X icons
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog'; // Import Dialog components
 import { Button } from '@/components/ui/button'; // Import Button
+import { ScrollArea } from '@/components/ui/scroll-area'; // Import ScrollArea
+import { cn } from '@/lib/utils'; // Import cn
 
 interface EventModalProps {
   event: Event;
@@ -18,80 +20,92 @@ interface EventModalProps {
 const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-popover backdrop-blur-md border-accent border">
-        <DialogHeader>
+      {/* Adjusted DialogContent styling for max height and overflow */}
+      <DialogContent className="sm:max-w-lg bg-popover backdrop-blur-md border-accent border flex flex-col max-h-[85vh]">
+        <DialogHeader className="flex-shrink-0">
           <DialogTitle>{event.name}</DialogTitle>
           <DialogDescription className="pt-2 text-sm">
              {event.description}
            </DialogDescription>
         </DialogHeader>
-        {/* Moved complex content outside DialogDescription */}
-        <div className="space-y-3 text-sm py-4">
-           <Badge className="mb-2" variant={event.type === 'Technical' ? 'secondary' : 'default'}>
-             {event.type}
-           </Badge>
-          <div className="flex items-center text-xs font-mono text-muted-foreground">
-            <Clock className="mr-1.5 h-3 w-3" />
-            {event.startTime} - {event.endTime}
-          </div>
 
-          <h4 className="font-semibold mt-4 mb-1 text-foreground">Rules:</h4>
-          <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
-            {event.rules.map((rule, index) => (
-              <li key={index}>{rule}</li>
-            ))}
-          </ul>
+        {/* Scrollable area for the main content */}
+        <ScrollArea className="flex-grow overflow-y-auto pr-6 -mr-6"> {/* Added pr-6/-mr-6 for scrollbar padding */}
+            <div className="space-y-3 text-sm py-4">
+               <Badge className="mb-2" variant={event.type === 'Technical' ? 'secondary' : 'default'}>
+                 {event.type}
+               </Badge>
+              <div className="flex items-center text-xs font-mono text-muted-foreground">
+                <Clock className="mr-1.5 h-3 w-3" />
+                {event.startTime} - {event.endTime}
+              </div>
 
-          <h4 className="font-semibold mt-4 mb-1 text-foreground">Detailed Description:</h4>
-          <p className="text-xs text-muted-foreground">{event.descriptionDetails}</p>
+              <h4 className="font-semibold mt-4 mb-1 text-foreground">Rules:</h4>
+              <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
+                {event.rules.map((rule, index) => (
+                  <li key={index}>{rule}</li>
+                ))}
+              </ul>
 
-          <h4 className="font-semibold mt-4 mb-1 text-foreground">Elimination Process:</h4>
-          <p className="text-xs text-muted-foreground">{event.eliminationProcess}</p>
+              <h4 className="font-semibold mt-4 mb-1 text-foreground">Detailed Description:</h4>
+              <p className="text-xs text-muted-foreground">{event.descriptionDetails}</p>
 
-          {/* Contact Information */}
-          <h4 className="font-semibold mt-4 mb-1 text-foreground">Contact:</h4>
-           <div className="space-y-2"> {/* Wrapper for contact sections */}
-             {/* First Contact */}
-             <div className="flex flex-col items-start space-y-1">
-               <div className="flex items-center text-xs text-muted-foreground">
-                 <User className="mr-1.5 h-3 w-3" />
-                 <span>{event.contactName}</span>
+              <h4 className="font-semibold mt-4 mb-1 text-foreground">Elimination Process:</h4>
+              <p className="text-xs text-muted-foreground">{event.eliminationProcess}</p>
+
+              {/* Contact Information */}
+              <h4 className="font-semibold mt-4 mb-1 text-foreground">Contact:</h4>
+               <div className="space-y-2"> {/* Wrapper for contact sections */}
+                 {/* First Contact */}
+                 <div className="flex flex-col items-start space-y-1">
+                   <div className="flex items-center text-xs text-muted-foreground">
+                     <User className="mr-1.5 h-3 w-3" />
+                     <span>{event.contactName}</span>
+                   </div>
+                   <Button
+                     variant="outline"
+                     size="sm"
+                     className="text-xs h-auto py-1 px-2 border-accent/50 hover:bg-accent/10 hover:text-accent"
+                     asChild
+                   >
+                     <a href={`tel:${event.contactPhone}`} aria-label={`Call ${event.contactName} at ${event.contactPhone}`}>
+                       <Phone className="mr-1.5 h-3 w-3" />
+                       Call {event.contactPhone}
+                     </a>
+                   </Button>
+                 </div>
+
+                 {/* Second Contact (Conditional) */}
+                 {event.contactName2 && event.contactPhone2 && (
+                    <div className="flex flex-col items-start space-y-1 pt-2"> {/* Add padding top */}
+                      <div className="flex items-center text-xs text-muted-foreground">
+                        <User className="mr-1.5 h-3 w-3" />
+                        <span>{event.contactName2}</span>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs h-auto py-1 px-2 border-accent/50 hover:bg-accent/10 hover:text-accent"
+                        asChild
+                      >
+                        <a href={`tel:${event.contactPhone2}`} aria-label={`Call ${event.contactName2} at ${event.contactPhone2}`}>
+                          <Phone className="mr-1.5 h-3 w-3" />
+                          Call {event.contactPhone2}
+                        </a>
+                      </Button>
+                    </div>
+                 )}
                </div>
-               <Button
-                 variant="outline"
-                 size="sm"
-                 className="text-xs h-auto py-1 px-2 border-accent/50 hover:bg-accent/10 hover:text-accent"
-                 asChild
-               >
-                 <a href={`tel:${event.contactPhone}`} aria-label={`Call ${event.contactName} at ${event.contactPhone}`}>
-                   <Phone className="mr-1.5 h-3 w-3" />
-                   Call {event.contactPhone}
-                 </a>
-               </Button>
-             </div>
+            </div>
+         </ScrollArea>
 
-             {/* Second Contact (Conditional) */}
-             {event.contactName2 && event.contactPhone2 && (
-                <div className="flex flex-col items-start space-y-1 pt-2"> {/* Add padding top */}
-                  <div className="flex items-center text-xs text-muted-foreground">
-                    <User className="mr-1.5 h-3 w-3" />
-                    <span>{event.contactName2}</span>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-xs h-auto py-1 px-2 border-accent/50 hover:bg-accent/10 hover:text-accent"
-                    asChild
-                  >
-                    <a href={`tel:${event.contactPhone2}`} aria-label={`Call ${event.contactName2} at ${event.contactPhone2}`}>
-                      <Phone className="mr-1.5 h-3 w-3" />
-                      Call {event.contactPhone2}
-                    </a>
-                  </Button>
-                </div>
-             )}
-           </div>
-        </div>
+         {/* Explicit Close button in footer (optional, as X is usually present) */}
+          {/* <DialogFooter className="flex-shrink-0 pt-4">
+            <DialogClose asChild>
+              <Button variant="outline">Close</Button>
+            </DialogClose>
+          </DialogFooter> */}
+           {/* DialogContent already includes an 'X' close button by default */}
       </DialogContent>
     </Dialog>
   );
@@ -107,8 +121,14 @@ const TimelineEvent = ({ event, onEventClick }: { event: Event; onEventClick: ()
       {/* Vertical Line Segment (part of the main line) */}
       {/* Dot */}
       <div className="absolute left-0 top-1 transform -translate-x-1/2 w-8 h-8 rounded-full bg-border flex items-center justify-center z-20 group-hover:scale-110 transition-transform">
-        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${event.type === 'Technical' ? 'bg-secondary' : 'bg-primary'}`}>
-            <Icon className={`w-4 h-4 ${event.type === 'Technical' ? 'text-secondary-foreground' : 'text-primary-foreground'}`} />
+        <div className={cn(
+            "w-6 h-6 rounded-full flex items-center justify-center",
+             event.type === 'Technical' ? 'bg-secondary' : 'bg-primary'
+             )}>
+            <Icon className={cn(
+                "w-4 h-4",
+                 event.type === 'Technical' ? 'text-secondary-foreground' : 'text-primary-foreground'
+                 )} />
         </div>
       </div>
 
@@ -175,3 +195,4 @@ const TimelineSection = () => {
   );
 };
 export default TimelineSection;
+
