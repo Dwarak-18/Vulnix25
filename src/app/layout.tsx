@@ -20,8 +20,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'VULNIX`25', // Updated title
   description: 'VULNIX - College Symposium on Cybersecurity Awareness',
-  // Removed default icons/favicon references if any were here to prevent default icon display
-  icons: [], // Ensures no specific favicon is linked via metadata
+  icons: [
+    // Reference the placeholder icon expected to be in the public directory
+    { rel: 'icon', url: '/cyber-criminal.png' },
+  ], // Ensures a specific favicon is linked via metadata
+
 };
 
 export default function RootLayout({
