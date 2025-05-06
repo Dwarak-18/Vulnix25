@@ -50,22 +50,47 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
 
           {/* Contact Information */}
           <h4 className="font-semibold mt-4 mb-1 text-foreground">Contact:</h4>
-          <div className="flex items-center text-xs text-muted-foreground mb-1"> {/* Added margin-bottom */}
-             <User className="mr-1.5 h-3 w-3" />
-             <span>{event.contactName}</span>
-          </div>
-           {/* Replace text link with a Button */}
-           <Button
-             variant="outline"
-             size="sm"
-             className="text-xs h-auto py-1 px-2 border-accent/50 hover:bg-accent/10 hover:text-accent" // Adjusted styling
-             asChild // Make the Button act as a link wrapper
-           >
-             <a href={`tel:${event.contactPhone}`} aria-label={`Call ${event.contactName} at ${event.contactPhone}`}>
-               <Phone className="mr-1.5 h-3 w-3" /> {/* Keep icon */}
-               Call {event.contactPhone} {/* Button text */}
-             </a>
-           </Button>
+           <div className="space-y-2"> {/* Wrapper for contact sections */}
+             {/* First Contact */}
+             <div className="flex flex-col items-start space-y-1">
+               <div className="flex items-center text-xs text-muted-foreground">
+                 <User className="mr-1.5 h-3 w-3" />
+                 <span>{event.contactName}</span>
+               </div>
+               <Button
+                 variant="outline"
+                 size="sm"
+                 className="text-xs h-auto py-1 px-2 border-accent/50 hover:bg-accent/10 hover:text-accent"
+                 asChild
+               >
+                 <a href={`tel:${event.contactPhone}`} aria-label={`Call ${event.contactName} at ${event.contactPhone}`}>
+                   <Phone className="mr-1.5 h-3 w-3" />
+                   Call {event.contactPhone}
+                 </a>
+               </Button>
+             </div>
+
+             {/* Second Contact (Conditional) */}
+             {event.contactName2 && event.contactPhone2 && (
+                <div className="flex flex-col items-start space-y-1 pt-2"> {/* Add padding top */}
+                  <div className="flex items-center text-xs text-muted-foreground">
+                    <User className="mr-1.5 h-3 w-3" />
+                    <span>{event.contactName2}</span>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs h-auto py-1 px-2 border-accent/50 hover:bg-accent/10 hover:text-accent"
+                    asChild
+                  >
+                    <a href={`tel:${event.contactPhone2}`} aria-label={`Call ${event.contactName2} at ${event.contactPhone2}`}>
+                      <Phone className="mr-1.5 h-3 w-3" />
+                      Call {event.contactPhone2}
+                    </a>
+                  </Button>
+                </div>
+             )}
+           </div>
         </div>
       </DialogContent>
     </Dialog>
