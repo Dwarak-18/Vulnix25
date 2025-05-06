@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: 'VULNIX`25', // Updated title
   description: 'VULNIX - College Symposium on Cybersecurity Awareness',
   // Removed default icons/favicon references if any were here to prevent default icon display
-  icons: [],
+  icons: [], // Ensures no specific favicon is linked via metadata
 };
 
 export default function RootLayout({
