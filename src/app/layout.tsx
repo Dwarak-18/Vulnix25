@@ -18,11 +18,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'VULNIX`25', // Updated title
+  title: 'VULNIX`25 | DSCET CyberSecurity', // Updated title
   description: 'VULNIX - College Symposium on Cybersecurity Awareness',
   icons: [
-    // Reference the placeholder icon expected to be in the public directory
-    { rel: 'icon', url: '/cyber-criminal.png' },
+    // Reference the local icon file expected to be in the src/app directory
+    { rel: 'icon', url: '/cybersecurity.ico' },
   ], // Ensures a specific favicon is linked via metadata
 
 };
