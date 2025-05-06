@@ -5,7 +5,7 @@ import React, { useState, Fragment } from 'react';
 import { getSortedEvents, type Event } from '@/constants/events';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock } from 'lucide-react';
+import { Clock, Phone, User } from 'lucide-react'; // Added Phone and User icons
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface EventModalProps {
@@ -20,12 +20,11 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
       <DialogContent className="sm:max-w-[425px] bg-popover backdrop-blur-md border-accent border">
         <DialogHeader>
           <DialogTitle>{event.name}</DialogTitle>
-           {/* Use DialogDescription for the short description text */}
            <DialogDescription className="pt-2 text-sm">
              {event.description}
            </DialogDescription>
         </DialogHeader>
-        {/* Moved complex content outside DialogDescription to avoid invalid nesting */}
+        {/* Moved complex content outside DialogDescription */}
         <div className="space-y-3 text-sm py-4">
            <Badge className="mb-2" variant={event.type === 'Technical' ? 'secondary' : 'default'}>
              {event.type}
@@ -34,8 +33,6 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
             <Clock className="mr-1.5 h-3 w-3" />
             {event.startTime} - {event.endTime}
           </div>
-          {/* Remove the short description paragraph from here as it's in DialogDescription now */}
-          {/* <p className="text-muted-foreground">{event.description}</p> */}
 
           <h4 className="font-semibold mt-4 mb-1 text-foreground">Rules:</h4>
           <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
@@ -49,6 +46,17 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
 
           <h4 className="font-semibold mt-4 mb-1 text-foreground">Elimination Process:</h4>
           <p className="text-xs text-muted-foreground">{event.eliminationProcess}</p>
+
+          {/* Contact Information */}
+          <h4 className="font-semibold mt-4 mb-1 text-foreground">Contact:</h4>
+          <div className="flex items-center text-xs text-muted-foreground">
+             <User className="mr-1.5 h-3 w-3" />
+             <span>{event.contactName}</span>
+          </div>
+          <div className="flex items-center text-xs text-muted-foreground">
+             <Phone className="mr-1.5 h-3 w-3" />
+             <a href={`tel:${event.contactPhone}`} className="text-accent hover:underline">{event.contactPhone}</a>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
@@ -133,4 +141,3 @@ const TimelineSection = () => {
   );
 };
 export default TimelineSection;
-

@@ -13,6 +13,8 @@ export interface Event {
   rules: string[];
   descriptionDetails: string;
   eliminationProcess: string;
+  contactName: string; // Added contact name
+  contactPhone: string; // Added contact phone
 }
 
 export const eventsData: Event[] = [
@@ -22,11 +24,13 @@ export const eventsData: Event[] = [
     description: 'Test your coding prowess against the clock. Solve complex problems and showcase your algorithmic skills.',
     type: 'Technical',
     icon: Code,
-    startTime: '09:30 AM',
-    endTime: '11:00 AM',
+    startTime: '10:15 AM',
+    endTime: '12:45 PM',
     rules: ['Teams consist of 2 members and may use any programming language.', 'Each round must be completed within the specified time limit. Collaboration is required; external help or plagiarism leads to disqualification.'],
     descriptionDetails: 'The challenge features three rounds-Easy, Medium, and Hard-each increasing in difficulty and testing both accuracy and code efficiency. Teams must solve all problems in each round, with rankings determined by correctness, code efficiency, and submission speed.',
     eliminationProcess: 'Teams failing to solve all problems in a round within the time limit are eliminated. Only teams with correct and timely submissions advance to the next round.',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543210', // Placeholder
   },
   {
     id: 'paper-presentation',
@@ -35,10 +39,12 @@ export const eventsData: Event[] = [
     type: 'Technical',
     icon: FileText,
     startTime: '10:00 AM',
-    endTime: '11:30 AM',
+    endTime: '12:30 PM',
     rules: ['Open to UG and PG students from all domains; teams can have 1 to 4 members, or individuals may participate.', ' Presentations must be 4–10 slides (including references) and submitted in PowerPoint or PDF format.', 'Judging is based on originality, relevance, clarity, presentation skills, and Q&A performance; cybersecurity topics receive extra credit.', 'The judges’ decisions are final, and all participants receive certificates, with awards for winners.'],
     descriptionDetails: 'Glitch Docs encourages innovative paper presentations, allowing students from any field to showcase ideas, either solo or in teams of up to four. Presentations should be concise, visually clear, and well-organized, adhering to the slide and time limits, and must be submitted in the specified formats. The event rewards impactful content, effective communication, and strong responses during Q&A, with special recognition for cybersecurity-related work.',
     eliminationProcess: 'Entries not meeting eligibility, format, or time requirements will be disqualified. Only teams adhering to all rules and delivering presentations within the allotted time advance to award consideration.',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543211', // Placeholder
   },
   {
     id: 'cybercase-investigation',
@@ -46,11 +52,13 @@ export const eventsData: Event[] = [
     description: 'Step into the shoes of a digital forensics expert. Analyze evidence, trace intrusions, and solve a simulated cybercrime.',
     type: 'Technical',
     icon: SearchCheck,
-    startTime: '11:30 AM',
-    endTime: '01:00 PM',
+    startTime: '10:15 AM',
+    endTime: '11:30 AM',
     rules: ['Participants may compete individually or in teams of up to two members.','Each team will analyze a provided cybersecurity breach scenario, outlining their investigation, recovery plan, and recommendations.', 'All findings must be presented to a judging panel within the allotted time, adhering to the event’s format and guidelines.', 'Plagiarism or failure to follow the scenario requirements will lead to disqualification.'],
     descriptionDetails: 'Step into the role of a cybersecurity analyst and tackle realistic breach scenarios inspired by actual incidents, focusing on startups and new companies. Participants will investigate the origins and timeline of the breach, identify vulnerabilities and attack vectors, and detail their response and recovery strategy. The challenge emphasizes actionable recommendations for recovery and the design of a tailored cybersecurity framework, culminating in a clear, structured presentation to the judges.',
     eliminationProcess: 'Teams or individuals that fail to provide a complete investigation, do not present actionable recovery measures, or violate event rules will be eliminated. Only those who deliver thorough, relevant, and well-communicated solutions within the guidelines advance for final evaluation and awards.',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543212', // Placeholder
   },
   {
     id: 'poster-presentation',
@@ -58,11 +66,13 @@ export const eventsData: Event[] = [
     description: 'Visually communicate your cybersecurity projects or ideas. Engage with attendees and explain your work concisely.',
     type: 'Technical',
     icon: Presentation,
-    startTime: '12:00 PM',
-    endTime: '01:30 PM',
+    startTime: '11:00 AM',
+    endTime: '11:45 AM',
     rules: ['Teams must have 1 or 2 members.', 'Each round has a specific focus: scenario-based AI image generation (Round 1), recreating a given poster using only the assigned AI tool (Round 2), and final poster polishing using Canva alone (Round 3).', 'The final round includes a review, where accuracy of the generated image is the main judging criterion.', 'Only the specified AI tools are allowed in each round; adherence to the process is mandatory.'],
     descriptionDetails: 'Pixelpunk is an AI-driven poster creation event, challenging participants to master prompt engineering and AI manipulation through three progressive rounds: scenario-based generation, poster recreation, and Canva-based refinement. Participants must generate outputs that closely match given statements or reference images, demonstrating both creativity and technical skill in prompt crafting and AI tool usage. The event emphasizes real-world AI problem-solving and the ability to achieve precise, high-quality visual results through iterative prompt refinement and editing.',
     eliminationProcess: 'Teams that fail to generate outputs meeting the scenario requirements, use unauthorized tools, or do not achieve sufficient accuracy in their final posters are eliminated. Only teams whose submissions align with the round objectives and pass the accuracy review advance to the next stage or are considered for awards.',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543213', // Placeholder
   },
   {
     id: 'idea-pitch',
@@ -70,20 +80,22 @@ export const eventsData: Event[] = [
     description: 'Pitch your innovative cybersecurity solution or startup idea. Convince the judges of its potential and impact.',
     type: 'Technical',
     icon: Lightbulb,
-    startTime: '01:30 PM',
-    endTime: '03:00 PM',
+    startTime: '10:30 AM',
+    endTime: '11:15 AM',
     rules: ['Teams must consist of 1 to 3 members.', 'The problem statement is provided on the spot; all solutions and presentations must be original and created during the event.', 'Each round must be completed within strict time limits, and final pitches must be submitted on time.', 'Participants must respect judges and fellow teams throughout the competition.'],
     descriptionDetails: 'Idea Pitch is a fast-paced, on-the-spot competition where teams receive a real-world problem and move through ideation, analysis, design, and pitching rounds, all under tight deadlines. Participants are challenged to quickly generate innovative solutions, assess their practicality, create a simple visual using Canva, and deliver a concise final pitch to the judges. The event emphasizes creativity, clarity, teamwork, and the ability to think and communicate effectively under pressure',
     eliminationProcess: 'Teams are eliminated if they miss deadlines, submit incomplete or non-original work, or violate rules of conduct. Only teams that successfully complete all rounds within the time limits and present original, relevant solutions advance for final judging and awards',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543214', // Placeholder
   },
   {
-    id: 'ctf-challenge', // New CTF event ID
+    id: 'ctf-challenge',
     name: 'FlagRunner 0x7E9',
     description: 'Capture The Flag! Engage in a series of cybersecurity challenges spanning web, crypto, forensics, and more.',
     type: 'Technical',
-    icon: Flag, // Using Flag icon for CTF
-    startTime: '02:00 PM', // Example time, adjust as needed
-    endTime: '04:00 PM', // Example time, adjust as needed
+    icon: Flag,
+    startTime: '10:00 AM',
+    endTime: '12:30 PM',
     rules: [
       'Teams can have up to 2 members, each with only one account; teamwork is essential.',
       'No flag sharing between teams, no bypassing questions, and no DDoS or brute-force attacks are allowed.',
@@ -91,6 +103,8 @@ export const eventsData: Event[] = [
     ],
     descriptionDetails: 'FlagRunner 0x7E9 is a cyberpunk-themed Capture The Flag (CTF) event where teams solve challenges in reverse engineering, web exploitation, and cryptography to find hidden "flags" within a controlled environment. Teams earn points for each flag captured, with challenges designed to test technical cybersecurity skills, creative problem-solving, and real-time collaboration. The event is structured in rounds, with each challenge requiring participants to demonstrate technical expertise and ethical conduct',
     eliminationProcess: 'Teams will be eliminated for sharing flags, using multiple accounts, attempting DDoS/brute-force attacks, bypassing questions, or violating any event rules. Only teams that adhere to all rules and successfully capture flags within the competition environment remain eligible for ranking and awards',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543215', // Placeholder
   },
   {
     id: 'real-or-ruse',
@@ -98,11 +112,13 @@ export const eventsData: Event[] = [
     description: 'Test your ability to spot phishing scams, fake news, and social engineering tactics. Can you tell fact from fiction?',
     type: 'Non-Technical',
     icon: HelpCircle,
-    startTime: '09:00 AM',
-    endTime: '10:00 AM',
+    startTime: '01:00 PM',
+    endTime: '02:00 PM',
     rules: ['Team Size: Round 1:- 2 members; Round 2:-  1 member from selected teams.', 'Host reads statements aloud. Participants respond with “Real” or “Ruse” within the time limit: Round 1: 30 seconds per question (10 questions). Round 2: 15 seconds per question (5 questions).', 'Correct answers earn 1 point. Incorrect answers earn 0 points, and opponents may be awarded points.', 'Highest score wins; ties decided by a sudden death bonus round.'],
     descriptionDetails: 'Real or Ruse is a truth-detection game where teams decide if statements read aloud by the host are True (“Real”) or False (“Ruse”). It tests quick Thinking and Knowledge under time pressure.',
     eliminationProcess: 'Incorrect answers causing loss of points. Failure to respond within the time limit. Use of external help or communication. Unsportsmanlike behavior.',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543216', // Placeholder
   },
   {
     id: 'mix-and-fix',
@@ -110,11 +126,13 @@ export const eventsData: Event[] = [
     description: 'A fun, hands-on challenge involving basic hardware troubleshooting or network cable crimping under pressure.',
     type: 'Non-Technical',
     icon: Wrench,
-    startTime: '10:30 AM',
-    endTime: '11:30 AM',
+    startTime: '12:30 PM',
+    endTime: '01:30 PM',
     rules: ['Round 1 :- Word Puzzle: Teams collaboratively unscramble a jumbled word within the allotted time. The first team to finish advances.', 'Round 2:– Quiz: The selected team answers a non-technical quiz.', 'Correct answers earn 1 point; incorrect or unanswered questions earn 0 points.', 'The fastest and most accurate solutions win.'],
     descriptionDetails: 'Mix n\' Fix is a fast-paced, team-based word and quiz challenge testing vocabulary, teamwork, and general knowledge. Open to UG and PG students, teams compete to unscramble words and answer quiz questions quickly and accurately.',
     eliminationProcess: 'Failure to finish puzzles, incorrect quiz answers, rule violations, Not adhering to team size requirements or misconduct.',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543217', // Placeholder
   },
   {
     id: 'survival-showdown',
@@ -122,11 +140,13 @@ export const eventsData: Event[] = [
     description: 'A series of quick, fun challenges testing logic, teamwork, and general awareness in simulated scenarios.',
     type: 'Non-Technical',
     icon: ShieldAlert,
-    startTime: '11:00 AM',
-    endTime: '12:30 PM',
+    startTime: '12:00 PM',
+    endTime: '01:30 PM',
     rules: ['Round 1: Participants view an image for 15 seconds and then estimate the number of items within 1 minute, relying solely on memory.', 'No note-taking, verbal communication, or external help allowed. False or misleading answers may incur a -1 point penalty.', 'Round 2: Participants identify all differences between two similar images within the given time.', 'Differences must be clearly marked; false marking or misleading responses can lead to disqualification.', 'Teams must have the correct number of members; time limits and differences count announced at start; judges’ decisions are final.'],
     descriptionDetails: 'Survival Showdown is a two-round event designed to test participants\' memory and observation skills. In the first round, participants memorize a complex image and estimate the number of items shown. The second round challenges participants to spot differences between two similar images.',
     eliminationProcess: 'False info, false marking, wrong team size, or unsportsmanlike conduct leads to penalties or disqualification.',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543218', // Placeholder
   },
   {
     id: 'photography',
@@ -134,24 +154,15 @@ export const eventsData: Event[] = [
     description: 'Capture the essence of VULNIX. Themed photography contest focusing on technology, security, and campus life.',
     type: 'Non-Technical',
     icon: Camera,
-    startTime: '12:00 PM',
+    startTime: '01:00 PM',
     endTime: '02:00 PM',
     rules: ['Solo players or teams of two.', 'Duration: 2 hours within the college campus.', 'All photos must be taken during event time only. No editing or filters allowed unless specified.', 'Respect privacy and environment; obtain permission before photographing strangers. Use only your own camera or phone.', 'Submit photos before the deadline to qualify for judging. Winners are selected based on creativity, clarity, and relevance..'],
     descriptionDetails: 'Shutters Sync is a creative photography challenge where solo players or teams of two complete unique photo tasks on campus using a DSLR or smartphone. The event emphasizes creativity, clarity, and relevance.',
     eliminationProcess: 'Using edited/outside photos, disturbing others, late submissions, or rule violations.  ',
+    contactName: 'Kishore', // Placeholder
+    contactPhone: '+91-9876543219', // Placeholder
   },
-  {
-    id: 'football', // Assuming this is maybe digital/e-sports or a casual game? Adjusted description.
-    name: '5 - Football Challenge',
-    description: 'Show off your virtual football skills in a friendly e-sports tournament. Compete for bragging rights!',
-    type: 'Non-Technical',
-    icon: Goal, // Using Goal, closest representation
-    startTime: '01:00 PM',
-    endTime: '03:00 PM',
-    rules: ['Two 7-minute halves, no offside, no sliding tackles, goalkeeper holds ball 4-6 seconds, kick-ins replace throw-ins.'],
-    descriptionDetails: '5’s Football is a fast-paced, small-sided football match with modified rules to encourage skill, speed, and sportsmanship. Teams consist of 5 players, playing two halves of 7 minutes each.',
-    eliminationProcess: 'Disrespect, rule violations, late arrival, ignoring referees, or unsportsmanlike conduct. Let me know if you want it even shorter or formatted differently!',
-  },
+
 ];
 
 // Helper function to get events sorted by start time
@@ -162,4 +173,5 @@ export const getSortedEvents = () => {
     return timeA.getTime() - timeB.getTime();
   });
 };
+
 
