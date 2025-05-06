@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Phone, User } from 'lucide-react'; // Added Phone and User icons
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button'; // Import Button
 
 interface EventModalProps {
   event: Event;
@@ -20,7 +21,7 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
       <DialogContent className="sm:max-w-[425px] bg-popover backdrop-blur-md border-accent border">
         <DialogHeader>
           <DialogTitle>{event.name}</DialogTitle>
-           <DialogDescription className="pt-2 text-sm">
+          <DialogDescription className="pt-2 text-sm">
              {event.description}
            </DialogDescription>
         </DialogHeader>
@@ -49,14 +50,22 @@ const EventModal: React.FC<EventModalProps> = ({ event, isOpen, onClose }) => {
 
           {/* Contact Information */}
           <h4 className="font-semibold mt-4 mb-1 text-foreground">Contact:</h4>
-          <div className="flex items-center text-xs text-muted-foreground">
+          <div className="flex items-center text-xs text-muted-foreground mb-1"> {/* Added margin-bottom */}
              <User className="mr-1.5 h-3 w-3" />
              <span>{event.contactName}</span>
           </div>
-          <div className="flex items-center text-xs text-muted-foreground">
-             <Phone className="mr-1.5 h-3 w-3" />
-             <a href={`tel:${event.contactPhone}`} className="text-accent hover:underline">{event.contactPhone}</a>
-          </div>
+           {/* Replace text link with a Button */}
+           <Button
+             variant="outline"
+             size="sm"
+             className="text-xs h-auto py-1 px-2 border-accent/50 hover:bg-accent/10 hover:text-accent" // Adjusted styling
+             asChild // Make the Button act as a link wrapper
+           >
+             <a href={`tel:${event.contactPhone}`} aria-label={`Call ${event.contactName} at ${event.contactPhone}`}>
+               <Phone className="mr-1.5 h-3 w-3" /> {/* Keep icon */}
+               Call {event.contactPhone} {/* Button text */}
+             </a>
+           </Button>
         </div>
       </DialogContent>
     </Dialog>
