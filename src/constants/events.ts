@@ -46,7 +46,7 @@ export const eventsData: Event[] = [
     icon: FileText,
     startTime: '10:15 AM',
     endTime: '12:45 PM',
-    rules: ['Open to UG and PG students from all domains; teams can have 1 to 4 members, or individuals may participate.', ' Presentations must be 4–10 slides (including references) and submitted in PowerPoint or PDF format.', 'Judging is based on originality, relevance, clarity, presentation skills, and Q&A performance; cybersecurity topics receive extra credit.', 'The judges’ decisions are final, and all participants receive certificates, with awards for winners.'],
+    rules: ['Open to UG and PG students from all domains; teams can have 1 to 4 members, or individuals may participate.', ' Presentations must be 4–10 slides (including references) and submitted in PowerPoint or PDF format.', 'Judging is based on originality, relevance, clarity, presentation skills, and Q&A performance.', 'The judges’ decisions are final, and all participants receive certificates, with awards for winners.'],
     descriptionDetails: 'Glitch Docs encourages innovative paper presentations, allowing students from any field to showcase ideas, either solo or in teams of up to four. Presentations should be concise, visually clear, and well-organized, adhering to the slide and time limits, and must be submitted in the specified formats. The event rewards impactful content, effective communication, and strong responses during Q&A, with special recognition for cybersecurity-related work.',
     eliminationProcess: 'Entries not meeting eligibility, format, or time requirements will be disqualified. Only teams adhering to all rules and delivering presentations within the allotted time advance to award consideration.',
     contactName: 'Dhileepkumar D', // Placeholder
